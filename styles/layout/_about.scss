@@ -92,29 +92,7 @@
       display: flex;
       align-items: center;
       gap: 0.75rem;
-
-      &::before {
-        content: '';
-        display: inline-block;
-        width: 30px;
-        height: 30px;
-        background: linear-gradient(45deg, #3b82f6, #2563eb);
-        border-radius: 8px;
-        mask-position: center;
-        mask-repeat: no-repeat;
-        mask-size: 60%;
-      }
-
-      // Different icons for each feature
-      &:nth-child(1)::before {
-        mask-image: url('transparency-icon.svg');
-      }
-      &:nth-child(2)::before {
-        mask-image: url('collaboration-icon.svg');
-      }
-      &:nth-child(3)::before {
-        mask-image: url('analytics-icon.svg');
-      }
+      text-wrap: nowrap;
     }
 
     &__desc {
