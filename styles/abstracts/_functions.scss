@@ -1,0 +1,7 @@
+/// Convert any color to rgba with given opacity
+/// @param {Color} $color - Base color (can be hex, rgb, etc.)
+/// @param {Number} $opacity - Opacity between 0 and 1
+/// @return {Color} RGBA color
+@function color-opacity($color, $opacity) {
+  @return rgba($color, $opacity);
+}
