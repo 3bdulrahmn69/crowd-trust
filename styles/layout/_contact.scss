@@ -1,0 +1,216 @@
+.contact {
+  padding: 8rem 1rem;
+  background: linear-gradient(145deg, #f8fafc 0%, #f1f5f9 100%);
+  position: relative;
+  overflow: hidden;
+
+  &__container {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 4rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+
+    @media (max-width: 1024px) {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+  }
+
+  &__content {
+    animation: fadeInLeft 0.8s ease-out;
+  }
+
+  .section__title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(45deg, #2563eb, #3b82f6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    &::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%);
+      margin-top: 1rem;
+      border-radius: 2px;
+    }
+  }
+
+  &__description {
+    font-size: 1.25rem;
+    color: #475569;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+    max-width: 500px;
+
+    @media (max-width: 768px) {
+      font-size: 1.1rem;
+    }
+  }
+
+  &__info {
+    display: grid;
+    gap: 1.5rem;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(8px);
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(203, 213, 225, 0.3);
+
+    p {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: #475569;
+      margin: 0;
+
+      &::before {
+        content: '';
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        background: linear-gradient(45deg, #3b82f6, #2563eb);
+        mask-position: center;
+        mask-repeat: no-repeat;
+        mask-size: 60%;
+        border-radius: 4px;
+      }
+
+      &:nth-child(1)::before {
+        mask-image: url('email-icon.svg');
+      }
+      &:nth-child(2)::before {
+        mask-image: url('phone-icon.svg');
+      }
+      &:nth-child(3)::before {
+        mask-image: url('location-icon.svg');
+      }
+    }
+
+    a {
+      color: #2563eb;
+      text-decoration: none;
+      transition: all 0.3s ease;
+
+      &:hover {
+        color: #1d4ed8;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &__form {
+    animation: fadeInRight 0.8s ease-out;
+    padding: 2.5rem;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 1.5rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(203, 213, 225, 0.2);
+  }
+
+  .form__group {
+    margin-bottom: 1.5rem;
+    position: relative;
+
+    &--full {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .form__label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #1e293b;
+    font-size: 0.95rem;
+  }
+
+  .form__input,
+  .form__textarea {
+    width: 100%;
+    padding: 0.875rem 1.25rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(255, 255, 255, 0.8);
+
+    &:focus {
+      outline: none;
+      border-color: #93c5fd;
+      box-shadow: 0 0 0 3px rgba(147, 197, 253, 0.3);
+      background: white;
+    }
+
+    &::placeholder {
+      color: #94a3b8;
+    }
+  }
+
+  .form__textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .btn--primary {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+    border-radius: 0.75rem;
+    background: linear-gradient(45deg, #2563eb, #3b82f6);
+    border: none;
+    color: white;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  // Animated background elements
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: -20%;
+    left: -10%;
+    width: 600px;
+    height: 600px;
+    background: linear-gradient(45deg, #bfdbfe 0%, #93c5fd 100%);
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    opacity: 0.1;
+    animation: blob-animation 20s infinite linear;
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

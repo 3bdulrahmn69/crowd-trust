@@ -1,15 +1,9 @@
-fetch('http://localhost:3000/projects')
-  .then((res) => res.json())
-  .then((projects) => {
-    const container = document.getElementById('projects');
-    projects.forEach((p) => {
-      const div = document.createElement('div');
-      div.innerHTML = `
-        <h2>${p.title}</h2>
-        <p>${p.description}</p>
-        <p>Goal: $${p.goal}</p>
-        <p>Raised: $${p.raised}</p>
-      `;
-      container.appendChild(div);
-    });
-  });
+const toggleBtn = document.querySelector('.header__toggle-btn');
+const navMenu = document.getElementById('nav-menu');
+
+toggleBtn.addEventListener('click', () => {
+  const expanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+  toggleBtn.setAttribute('aria-expanded', !expanded);
+  toggleBtn.classList.toggle('is-active');
+  navMenu.classList.toggle('active');
+});
