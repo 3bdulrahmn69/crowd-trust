@@ -1,0 +1,23 @@
+// Base Styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: $text-color;
+  line-height: 1.6;
+  background-color: $light-gray;
+}
+
+a {
+  text-decoration: none;
+  color: $primary-color;
+  transition: color 0.2s;
+
+  &:hover {
+    color: $primary-hover;
+  }
+}
