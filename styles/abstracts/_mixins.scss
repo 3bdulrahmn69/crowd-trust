@@ -1,0 +1,37 @@
+// Button component styles
+@mixin flex-box(
+  $direction: row,
+  $justify: center,
+  $align: center,
+  $gap: 0,
+  $wrap: nowrap
+) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+  gap: $gap;
+  flex-wrap: $wrap;
+}
+
+// Button mixin for creating different variants
+@mixin button($bg-color, $text-color, $border-color: null) {
+  background-color: $bg-color;
+  color: $text-color;
+  border: 2px solid if($border-color, $border-color, $bg-color);
+
+  &:hover:not(:disabled) {
+    background-color: darken($bg-color, 8%);
+    border-color: darken(if($border-color, $border-color, $bg-color), 8%);
+  }
+
+  &:active:not(:disabled) {
+    background-color: darken($bg-color, 12%);
+    border-color: darken(if($border-color, $border-color, $bg-color), 12%);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba($bg-color, 0.4);
+  }
+}

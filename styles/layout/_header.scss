@@ -1,0 +1,132 @@
+.header {
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  position: relative;
+  z-index: 100;
+  padding: 1rem 0;
+
+  &__container {
+    @include flex-box(row, space-between, center, 0, nowrap);
+    padding: 1rem 1rem;
+  }
+
+  &__logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+
+    .logo__link {
+      background: linear-gradient(90deg, #007bff, #00c6ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text; // For modern Firefox
+
+      text-decoration: none;
+      transition: opacity 0.3s ease;
+    }
+  }
+
+  &__toggle-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 24px;
+    width: 30px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    gap: 5px;
+    transition: all 0.3s ease-in-out;
+
+    .bar {
+      width: 100%;
+      height: 3px;
+      background-color: $color-primary;
+      transition: all 0.3s ease-in-out;
+      border-radius: 2px;
+    }
+
+    &.is-active {
+      .bar:nth-child(1) {
+        transform: translateY(10px) rotate(45deg);
+      }
+
+      .bar:nth-child(2) {
+        opacity: 0;
+      }
+
+      .bar:nth-child(3) {
+        transform: translateY(-5px) rotate(-45deg);
+      }
+    }
+
+    @media (max-width: 768px) {
+      display: flex;
+    }
+  }
+
+  &__nav {
+    @include flex-box(row, space-between, center, 2rem, nowrap);
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.5rem;
+      padding: 1rem 0;
+      width: 100%;
+      background-color: #ffffff;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-10px);
+      transition: max-height 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+
+      &.active {
+        display: flex;
+        max-height: 500px; // large enough to fit your menu
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+    }
+
+    .nav__links {
+      @include flex-box(row, flex-start, center, 1rem, nowrap);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .nav__item {
+        .nav__link {
+          color: #333;
+          text-decoration: none;
+          font-weight: bold;
+          transition: color 0.3s ease;
+
+          &:hover {
+            color: #007bff;
+          }
+        }
+      }
+    }
+
+    .nav__auth {
+      @include flex-box(row, flex-start, center, 1rem, nowrap);
+
+      @media (max-width: 768px) {
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+      }
+    }
+  }
+}
