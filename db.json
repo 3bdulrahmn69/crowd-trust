@@ -36,7 +36,7 @@
       "id": "5",
       "name": "Eve Black",
       "email": "eve@example.com",
-      "password": "eve123",
+      "password": "123456",
       "role": "backer",
       "isActive": true
     }
