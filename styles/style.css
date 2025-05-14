@@ -2228,4 +2228,261 @@ img {
   margin-top: 1.5rem;
   color: #636e72;
   font-size: 0.9rem;
+}
+
+.profile-container {
+  max-width: 1200px;
+  height: 100vh;
+  margin: 0 auto;
+  padding: 2rem;
+  overflow-y: auto;
+  background: white;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.05);
+}
+.profile-container .name {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #3b82f6;
+  margin-bottom: 0.5rem;
+}
+.profile-container .feedback {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+}
+.profile-container .feedback-success {
+  color: #22c55e;
+}
+.profile-container .feedback-error {
+  color: #ef4444;
+}
+.profile-container .profile-nav {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 2.5rem;
+  background: white;
+  padding: 1rem 0;
+  z-index: 10;
+}
+.profile-container .profile-nav .nav-tab {
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  border: none;
+  border-radius: 0.75rem;
+  font-weight: 500;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.profile-container .profile-nav .nav-tab:hover:not(.active) {
+  background: #f8fafc;
+  color: #3b82f6;
+}
+.profile-container .profile-nav .nav-tab.active {
+  color: #3b82f6;
+  background: rgba(59, 130, 246, 0.1);
+  position: relative;
+}
+.profile-container .profile-nav .nav-tab.active::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #3b82f6;
+}
+.profile-container .profile-tab {
+  display: none;
+  animation: fadeIn 0.3s ease-out;
+}
+.profile-container .profile-tab.active {
+  display: block;
+}
+.profile-container .profile-section {
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 1rem;
+  border: 1px solid #f1f5f9;
+}
+.profile-container .profile-section h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 1.5rem;
+}
+.profile-container #user-details {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+.profile-container #user-details p {
+  margin: 0;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+}
+.profile-container #user-details p strong {
+  color: #1e293b;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+.profile-container #user-details p span {
+  color: #64748b;
+  font-weight: 400;
+}
+.profile-container form {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 500px;
+}
+.profile-container form label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #475569;
+  display: block;
+}
+.profile-container form input {
+  width: 100%;
+  padding: 0.875rem 1.25rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  background: #f8fafc;
+}
+.profile-container form input:focus {
+  outline: none;
+  border-color: #93c5fd;
+  box-shadow: 0 0 0 3px rgba(147, 197, 253, 0.2);
+  background: white;
+}
+.profile-container form button[type=submit] {
+  padding: 0.875rem 1.75rem;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.profile-container form button[type=submit]:hover {
+  background: #2563eb;
+}
+.profile-container #control-section {
+  border-color: #fee2e2;
+  background: #fef2f2;
+}
+.profile-container #control-section h2 {
+  color: #dc2626;
+}
+.profile-container #control-section p {
+  color: #991b1b;
+  margin-bottom: 1rem;
+}
+.profile-container #control-section .btn--danger {
+  background: #dc2626;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  transition: all 0.2s ease;
+}
+.profile-container #control-section .btn--danger:hover {
+  background: #b91c1c;
+}
+.profile-container #campaigns-list {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+.profile-container .campaign-card {
+  padding: 1.5rem;
+  border: 1px solid #f1f5f9;
+  border-radius: 1rem;
+  transition: transform 0.2s ease;
+}
+.profile-container .campaign-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+.profile-container .campaign-card .campaign__title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #1e293b;
+}
+.profile-container .campaign-card .campaign__description {
+  color: #64748b;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+.profile-container .campaign-card .campaign__progress-bar {
+  height: 6px;
+  background: #f1f5f9;
+  border-radius: 3px;
+  margin: 1rem 0;
+}
+.profile-container .campaign-card .campaign__progress-bar .campaign__progress {
+  height: 100%;
+  background: #3b82f6;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+.profile-container .campaign-card img {
+  width: 100%;
+  height: 200px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 0.75rem;
+  margin-top: 1rem;
+}
+.profile-container #pledges-list {
+  display: grid;
+  gap: 1rem;
+}
+.profile-container .pledge-card {
+  padding: 1.5rem;
+  border: 1px solid #f1f5f9;
+  border-radius: 1rem;
+  background: white;
+}
+.profile-container .pledge-card p {
+  margin: 0.25rem 0;
+  font-size: 0.875rem;
+  color: #475569;
+}
+.profile-container .pledge-card p strong {
+  color: #1e293b;
+  font-weight: 500;
+}
+@media (max-width: 768px) {
+  .profile-container .profile-container {
+    padding: 1.5rem;
+  }
+  .profile-container .profile-nav {
+    flex-direction: column;
+  }
+  .profile-container .profile-nav .nav-tab {
+    width: 100%;
+    text-align: left;
+  }
+  .profile-container .profile-section {
+    padding: 1.5rem;
+  }
+  .profile-container #campaigns-list {
+    grid-template-columns: 1fr;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }/*# sourceMappingURL=style.css.map */

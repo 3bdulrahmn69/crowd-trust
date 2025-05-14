@@ -39,7 +39,22 @@ async function updateUser(id, updates) {
     body: JSON.stringify(updates),
   });
   return await res.json();
-} // Approve/reject campaigner or ban/unban user
+} // Approve/reject campaigner or ban/UnBan user
+
+async function getUserByCampaignId(campaignId) {
+  const res = await getCampaignById(campaignId);
+  const userId = await res.creatorId;
+  const userRes = await fetch(`${BASE_URL}/users/${userId}`);
+  const user = await userRes.json();
+  return user;
+}
+
+async function deleteUser(id) {
+  const res = await fetch(`${BASE_URL}/users/${id}`, {
+    method: 'DELETE',
+  });
+  return res.ok;
+} // Delete user
 
 // TOPIC: All Campaign API calls
 async function createCampaign(campaignData) {
@@ -55,6 +70,11 @@ async function getAllCampaigns() {
   const res = await fetch(`${BASE_URL}/campaigns`);
   return await res.json();
 } // Get all campaigns
+
+async function getCampaignsByUser(userId) {
+  const res = await fetch(`${BASE_URL}/campaigns?creatorId=${userId}`);
+  return await res.json();
+}
 
 async function getApprovedCampaigns() {
   const res = await fetch(`${BASE_URL}/campaigns?isApproved=true`);
@@ -150,8 +170,11 @@ export {
   getUserById,
   getCampaignerRequests,
   updateUser,
+  getUserByCampaignId,
+  deleteUser,
   createCampaign,
   getAllCampaigns,
+  getCampaignsByUser,
   getApprovedCampaigns,
   searchCampaigns,
   filterCampaignsByCategory,
