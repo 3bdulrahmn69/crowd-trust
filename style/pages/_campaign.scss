@@ -1,0 +1,544 @@
+// Campaign Hero Section
+.campaign-hero {
+  padding: $spacing-7 0;
+  @include gradient-bg(135deg, $gray-100, $gray-200);
+  position: relative;
+  overflow: hidden;
+
+  &-container {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-6;
+    position: relative;
+    z-index: 2;
+
+    @include media-min(lg) {
+      flex-direction: row;
+      gap: $spacing-8;
+    }
+  }
+
+  &-media {
+    flex: 1;
+    border-radius: $border-radius-lg;
+    overflow: hidden;
+    background: $gray-300;
+    min-height: 400px;
+    position: relative;
+    box-shadow: $box-shadow-lg;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to bottom, rgba($dark, 0.1), rgba($dark, 0.3));
+    }
+  }
+
+  &-details {
+    flex: 1;
+    padding: $spacing-4;
+    background: rgba(white, 0.9);
+    border-radius: $border-radius-lg;
+    box-shadow: $box-shadow-md;
+    backdrop-filter: blur(5px);
+  }
+}
+
+// Category Badge
+.category-badge {
+  display: inline-flex;
+  align-items: center;
+  background: rgba($primary, 0.1);
+  padding: $spacing-1 $spacing-3;
+  border-radius: $border-radius-pill;
+  margin-bottom: $spacing-4;
+  font-size: $font-size-sm;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: $primary;
+
+  i {
+    margin-right: $spacing-2;
+    font-size: $font-size-base;
+  }
+}
+
+// Creator Info
+.creator {
+  display: flex;
+  align-items: center;
+  margin-bottom: $spacing-5;
+
+  &-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: $border-radius-circle;
+    overflow: hidden;
+    margin-right: $spacing-3;
+    border: 2px solid white;
+    box-shadow: $box-shadow-sm;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &-info {
+    .creator-name {
+      font-weight: 600;
+      margin-bottom: $spacing-1;
+    }
+
+    .creator-meta {
+      font-size: $font-size-sm;
+      color: $gray-500;
+    }
+  }
+}
+
+// Progress Bar
+.progress {
+  margin-bottom: $spacing-6;
+
+  &-stats {
+    @include flex-between;
+    margin-bottom: $spacing-2;
+    font-weight: 600;
+
+    .amount-raised {
+      color: $primary;
+      font-size: $font-size-xl;
+    }
+
+    .funding-goal {
+      color: $gray-600;
+    }
+  }
+
+  &-bar {
+    height: 10px;
+    background: $gray-300;
+    border-radius: $border-radius-pill;
+    overflow: hidden;
+    box-shadow: $box-shadow-inner;
+  }
+
+  &-fill {
+    height: 100%;
+    background: $primary;
+    width: 0%;
+    transition: width 1s ease-out;
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, 
+        rgba(white, 0) 0%, 
+        rgba(white, 0.3) 50%, 
+        rgba(white, 0) 100%);
+      animation: progressShine 2s infinite;
+    }
+  }
+}
+
+@keyframes progressShine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+// Info Cards
+.info-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: $spacing-3;
+  margin-bottom: $spacing-6;
+
+  .info-card {
+    background: white;
+    border-radius: $border-radius-md;
+    padding: $spacing-3;
+    text-align: center;
+    box-shadow: $box-shadow-sm;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: $box-shadow-md;
+    }
+
+    .value {
+      font-size: $font-size-3xl;
+      font-weight: 700;
+      margin-bottom: $spacing-1;
+      color: $primary;
+      line-height: 1;
+    }
+
+    .label {
+      font-size: $font-size-sm;
+      color: $gray-600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+  }
+}
+
+// Campaign Tabs
+.campaign-tabs {
+  margin-top: $spacing-7;
+  background: white;
+  border-radius: $border-radius-lg;
+  padding: $spacing-5;
+  box-shadow: $box-shadow-md;
+
+  &-header {
+    display: flex;
+    border-bottom: 1px solid $gray-300;
+    margin-bottom: $spacing-5;
+    overflow-x: auto;
+    scrollbar-width: none; // Firefox
+    -ms-overflow-style: none; // IE
+
+    &::-webkit-scrollbar {
+      display: none; // Chrome/Safari
+    }
+  }
+
+  &-button {
+    padding: $spacing-3 $spacing-5;
+    background: none;
+    border: none;
+    font-weight: 600;
+    color: $gray-500;
+    cursor: pointer;
+    position: relative;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: $primary;
+    }
+
+    &.active {
+      color: $primary;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: $primary;
+        border-radius: $border-radius-pill;
+      }
+    }
+  }
+
+  &-content {
+    display: none;
+    animation: fadeIn 0.5s ease;
+
+    &.active {
+      display: block;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+// Campaign Story
+.campaign-story {
+  line-height: 1.8;
+  color: $gray-700;
+
+  h2, h3, h4 {
+    margin-top: $spacing-5;
+    margin-bottom: $spacing-3;
+    color: $dark;
+  }
+
+  p {
+    margin-bottom: $spacing-4;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: $border-radius-md;
+    margin: $spacing-4 0;
+    box-shadow: $box-shadow-md;
+  }
+
+  ul, ol {
+    margin-bottom: $spacing-4;
+    padding-left: $spacing-4;
+  }
+
+  li {
+    margin-bottom: $spacing-2;
+  }
+
+  blockquote {
+    border-left: 4px solid $primary;
+    padding-left: $spacing-4;
+    margin: $spacing-5 0;
+    font-style: italic;
+    color: $gray-600;
+  }
+}
+
+// Updates
+.update-card {
+  background: $gray-100;
+  border-radius: $border-radius-md;
+  padding: $spacing-4;
+  margin-bottom: $spacing-4;
+  border-left: 3px solid $primary;
+
+  &-title {
+    font-size: $font-size-xl;
+    margin-bottom: $spacing-2;
+    color: $dark;
+  }
+
+  &-date {
+    font-size: $font-size-sm;
+    color: $gray-500;
+    margin-bottom: $spacing-3;
+  }
+
+  &-content {
+    line-height: 1.7;
+    color: $gray-700;
+
+    p {
+      margin-bottom: $spacing-3;
+    }
+  }
+}
+
+// Rewards Section
+.rewards-section {
+  margin-top: $spacing-8;
+  background: white;
+  border-radius: $border-radius-lg;
+  padding: $spacing-6;
+  box-shadow: $box-shadow-md;
+
+  .section-title {
+    font-size: $font-size-3xl;
+    margin-bottom: $spacing-5;
+    display: flex;
+    align-items: center;
+    color: $dark;
+
+    i {
+      margin-right: $spacing-3;
+      color: $primary;
+    }
+  }
+}
+
+.rewards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: $spacing-4;
+}
+
+.reward-card {
+  background: white;
+  border-radius: $border-radius-md;
+  padding: $spacing-5;
+  box-shadow: $box-shadow-sm;
+  border: 1px solid $gray-200;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: $box-shadow-lg;
+    border-color: $primary;
+  }
+
+  &-title {
+    font-size: $font-size-xl;
+    font-weight: 600;
+    margin-bottom: $spacing-3;
+    color: $primary;
+  }
+
+  &-amount {
+    font-size: $font-size-3xl;
+    font-weight: 700;
+    margin-bottom: $spacing-3;
+    color: $dark;
+  }
+
+  &-description {
+    color: $gray-600;
+    margin-bottom: $spacing-4;
+    line-height: 1.7;
+  }
+
+  &-delivery {
+    font-size: $font-size-sm;
+    color: $gray-500;
+    margin-bottom: $spacing-4;
+    display: flex;
+    align-items: center;
+
+    i {
+      margin-right: $spacing-2;
+    }
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  &.highlighted {
+    border: 2px solid $primary;
+    box-shadow: 0 0 0 3px rgba($primary, 0.1);
+
+    &::before {
+      content: 'Popular';
+      position: absolute;
+      top: 10px;
+      right: -30px;
+      background: $primary;
+      color: white;
+      padding: $spacing-1 $spacing-8;
+      transform: rotate(45deg);
+      font-size: $font-size-xs;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+  }
+}
+
+// Pledges
+.pledge-card {
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: $border-radius-md;
+  padding: $spacing-3;
+  margin-bottom: $spacing-3;
+  box-shadow: $box-shadow-sm;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateX(5px);
+    box-shadow: $box-shadow-md;
+  }
+
+  &-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: $border-radius-circle;
+    overflow: hidden;
+    margin-right: $spacing-3;
+    flex-shrink: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &-info {
+    flex: 1;
+
+    .pledge-user {
+      font-weight: 600;
+      margin-bottom: $spacing-1;
+    }
+
+    .pledge-comment {
+      font-size: $font-size-sm;
+      color: $gray-600;
+      margin-bottom: $spacing-1;
+    }
+  }
+
+  &-meta {
+    text-align: right;
+
+    .pledge-amount {
+      font-weight: 700;
+      color: $primary;
+      margin-bottom: $spacing-1;
+    }
+
+    .pledge-date {
+      font-size: $font-size-xs;
+      color: $gray-500;
+    }
+  }
+}
+
+// Responsive Adjustments
+@include media-max(md) {
+  .campaign-hero {
+    padding: $spacing-5 0;
+
+    &-media {
+      min-height: 300px;
+    }
+  }
+
+  .info-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .rewards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@include media-max(sm) {
+  .info-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .campaign-tabs-header {
+    flex-wrap: wrap;
+  }
+
+  .campaign-tabs-button {
+    padding: $spacing-2 $spacing-3;
+    font-size: $font-size-sm;
+  }
+}
