@@ -1019,7 +1019,7 @@ img {
 }
 @media (max-width: 1024px) {
   .footer__container {
-    grid-template-columns: 1fr;
+    grid-template-columns:1fr;
     gap: 2rem;
   }
 }

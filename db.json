@@ -2,50 +2,6 @@
   "users": [],
   "campaigns": [],
   "pledges": [],
-  "updates": [],
-  "categories":[{
-    "id": 1,
-    "name": "Medical",
-    "icon": "icons/medical.svg"
-  },
-  {
-    "id": 2,
-    "name": "Memorial",
-    "icon": "icons/memorial.svg"
-  },
-  {
-    "id": 3,
-    "name": "Charity",
-    "icon": "icons/charity.svg"
-  },
-  {
-    "id": 4,
-    "name": "Emergency",
-    "icon": "icons/emergency.svg"
-  },
-  {
-    "id": 5,
-    "name": "Business",
-    "icon": "icons/business.svg"
-  },
-  {
-    "id": 6,
-    "name": "Education",
-    "icon": "icons/education.svg"
-  },
-  {
-    "id": 7,
-    "name": "Sports",
-    "icon": "icons/sports.svg"
-  },
-  {
-    "id": 8,
-    "name": "Animals",
-    "icon": "icons/animals.svg"
-  },
-  {
-    "id": 9,
-    "name": "Wedding",
-    "icon": "icons/wedding.svg"
-  }]
+  "updates": []
+
 }
