@@ -11,7 +11,7 @@
 @import 'base/typography';
 
 // layout/
-@import './layout/responsive';
+@import 'layout/responsive';
 @import 'layout/header';
 @import 'layout/hero';
 @import 'layout/about';
@@ -24,11 +24,9 @@
 @import 'components/container';
 @import 'components/button';
 
-
 // pages/
 @import 'pages/dashboard';
-@import './pages/home';
-@import './pages/signup';
+@import 'pages/signup';
 
 // themes/
 @import 'themes/light';

@@ -2,21 +2,12 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Crowd Trust</title>
-  <link rel="stylesheet" href="./style/style.css">
-</head>
-
-<body>
-<!DOCTYPE html>
-<html lang="en">
-<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FundFlow - Sign Up</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Crowd Trust</title>
+    <link rel="stylesheet" href="../styles/style.css">
 </head>
+
 <body>
     <main class="auth-container">
         <div class="auth-hero">
@@ -26,43 +17,43 @@
                 <div class="hero-features">
                     <div class="feature">
                         <svg viewBox="0 0 24 24" width="24" height="24">
-                            <path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                            <path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
                         </svg>
                         <span>0% platform fees for creators</span>
                     </div>
                     <div class="feature">
                         <svg viewBox="0 0 24 24" width="24" height="24">
-                            <path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                            <path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
                         </svg>
                         <span>All-or-nothing funding</span>
                     </div>
                     <div class="feature">
                         <svg viewBox="0 0 24 24" width="24" height="24">
-                            <path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                            <path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
                         </svg>
                         <span>Global community</span>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <div class="auth-form-container">
             <header class="auth-header">
                 <h2>Create your account</h2>
                 <p>Join as a creator, backer, or both.</p>
             </header>
-            
+
             <form class="auth-form" id="signupForm">
                 <div class="form-group">
                     <label for="fullName">Full Name</label>
                     <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name">
                 </div>
-                
+
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" required placeholder="Enter your email">
                 </div>
-                
+
                 <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" required placeholder="Create a password">
@@ -73,7 +64,7 @@
                         <span class="strength-text">Password strength</span>
                     </div>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="userType">I want to join as a:</label>
                     <div class="radio-group">
@@ -87,37 +78,28 @@
                             <span class="radio-custom"></span>
                             <span>Creator (start projects)</span>
                         </label>
-                        <label class="radio-option">
-                            <input type="radio" name="userType" value="both">
-                            <span class="radio-custom"></span>
-                            <span>Both</span>
-                        </label>
                     </div>
                 </div>
-                
+
                 <div class="form-group terms">
                     <label class="checkbox-option">
                         <input type="checkbox" id="terms" name="terms" required>
                         <span class="checkbox-custom"></span>
-                        <span>I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></span>
+                        <span>I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy
+                                Policy</a></span>
                     </label>
                 </div>
-                
+
                 <button type="submit" class="btn-primary">Create Account</button>
-                
+
                 <div class="auth-footer">
                     <p>Already have an account? <a href="login.html">Log in</a></p>
                 </div>
             </form>
         </div>
     </main>
-    
-    <script src="auth.js"></script>
-</body>
-</html>
 
-
-  <script src="js/main.js" type="module"></script>
+    <script src="../js/auth.js" type="module"></script>
 </body>
 
 </html>
