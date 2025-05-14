@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crowd Trust - Dashboard</title>
+  <link rel="stylesheet" href="../styles/style.css">
+</head>
+
+<body>
+  <div class="dashboard">
+    <aside class="dashboard__sidebar">
+      <nav class="dashboard__nav">
+        <button class="dashboard__btn" data-section="users">Users</button>
+        <button class="dashboard__btn" data-section="campaigns">Campaigns</button>
+        <button class="dashboard__btn" data-section="pledges">Pledges</button>
+      </nav>
+    </aside>
+
+    <main class="dashboard__main">
+      <section class="dashboard__section" id="users">
+        <h2 class="section__title">Users</h2>
+
+        <!-- Filters -->
+        <div class="filters">
+          <label for="filter-role">Filter by Role:</label>
+          <select id="filter-role" class="filter__select">
+            <option value="all">All Roles</option>
+            <option value="admin">Admin</option>
+            <option value="campaigner">Campaigner</option>
+            <option value="backer">Backer</option>
+            <!-- Add more roles if needed -->
+          </select>
+
+          <label for="filter-status">Filter by Status:</label>
+          <select id="filter-status" class="filter__select">
+            <option value="all">All Statuses</option>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+          </select>
+        </div>
+
+        <!-- Users Table -->
+        <div class="table__wrapper">
+          <table class="users__table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="users-table-body">
+              <!-- User rows will be injected here via JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="dashboard__section" id="campaigns">
+        <h2 class="section__title">Campaigns</h2>
+
+        <!-- Optional Filters -->
+        <div class="filters">
+          <label for="campaign-category">Category:</label>
+          <select id="campaign-category" class="filter__select">
+            <option value="all">All Categories</option>
+            <option value="health">Health</option>
+            <option value="technology">Technology</option>
+            <option value="education">Education</option>
+            <!-- Add more categories if needed -->
+          </select>
+
+          <label for="campaign-status">Filter by Status:</label>
+          <select id="campaign-status" class="filter__select">
+            <option value="all">All Statuses</option>
+            <option value="approved">Approved</option>
+            <option value="need-approved">Need Approved</option>
+          </select>
+        </div>
+
+        <!-- Campaigns Grid -->
+        <div class="campaigns__grid" id="campaigns-list">
+          <!-- Campaign cards will be inserted here -->
+        </div>
+      </section>
+
+      <section class="dashboard__section" id="pledges">
+        <h2 class="section__title">Pledges</h2>
+
+        <!-- Optional Filters (e.g., by user, campaign) -->
+        <div class="filters">
+          <label for="pledge-campaign">Filter by Campaign:</label>
+          <select id="pledge-campaign" class="filter__select">
+            <option value="all">All Campaigns</option>
+            <!-- Dynamically populate campaigns -->
+          </select>
+
+          <label for="pledge-user">Filter by User:</label>
+          <select id="pledge-user" class="filter__select">
+            <option value="all">All Users</option>
+            <!-- Dynamically populate users -->
+          </select>
+        </div>
+
+        <!-- Pledges Table -->
+        <div class="table__wrapper">
+          <table class="pledges__table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Campaign</th>
+                <th>User</th>
+                <th>Amount</th>
+                <th>Reward</th>
+              </tr>
+            </thead>
+            <tbody id="pledges-table-body">
+              <!-- Pledge rows will be injected via JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="../js/dashboard.js" type="module"></script>
+</body>
+
+</html>
