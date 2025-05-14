@@ -40,6 +40,10 @@
     @include button($color-success, $color-white);
   }
 
+  &--danger {
+    @include button($color-danger, $color-white);
+  }
+
   &--text {
     @include button(#ffffff00, $color-primary);
   }

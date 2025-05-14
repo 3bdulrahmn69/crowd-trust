@@ -11,11 +11,7 @@
 @import 'base/typography';
 
 // layout/
-<<<<<<< HEAD:style/style.scss
 @import './layout/responsive';
-// components/
-@import './component/bottons';
-=======
 @import 'layout/header';
 @import 'layout/hero';
 @import 'layout/about';
@@ -28,9 +24,11 @@
 @import 'components/container';
 @import 'components/button';
 
->>>>>>> d031e7ab958eaae11834cfdf0fc975577cb4c59e:styles/style.scss
+
 // pages/
+@import 'pages/dashboard';
 @import './pages/home';
 @import './pages/signup';
+
 // themes/
 @import 'themes/light';

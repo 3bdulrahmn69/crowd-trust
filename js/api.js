@@ -17,6 +17,11 @@ async function login(email, password) {
   return user || null;
 } // login (validate credentials manually)
 
+async function getAllUsers() {
+  const res = await fetch(`${BASE_URL}/users`);
+  return await res.json();
+}
+
 async function getUserById(id) {
   const res = await fetch(`${BASE_URL}/users/${id}`);
   return await res.json();
@@ -101,6 +106,11 @@ async function createPledge(pledgeData) {
   return await res.json();
 } // Submit a pledge
 
+async function getAllPledges() {
+  const res = await fetch(`${BASE_URL}/pledges`);
+  return await res.json();
+}
+
 async function getPledgesByUser(userId) {
   const res = await fetch(`${BASE_URL}/pledges?userId=${userId}`);
   return await res.json();
@@ -132,3 +142,27 @@ async function getUpdatesByCampaign(campaignId) {
   const res = await fetch(`${BASE_URL}/updates?campaignId=${campaignId}`);
   return await res.json();
 } // Get updates for a campaign
+
+export {
+  registerUser,
+  login,
+  getAllUsers,
+  getUserById,
+  getCampaignerRequests,
+  updateUser,
+  createCampaign,
+  getAllCampaigns,
+  getApprovedCampaigns,
+  searchCampaigns,
+  filterCampaignsByCategory,
+  getCampaignById,
+  updateCampaign,
+  deleteCampaign,
+  createPledge,
+  getAllPledges,
+  getPledgesByUser,
+  getPledgesByCampaign,
+  getUserPledgeToCampaign,
+  postCampaignUpdate,
+  getUpdatesByCampaign,
+};
