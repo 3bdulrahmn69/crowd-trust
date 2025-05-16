@@ -83,16 +83,6 @@
         mask-size: 60%;
         border-radius: 4px;
       }
-
-      &:nth-child(1)::before {
-        mask-image: url('email-icon.svg');
-      }
-      &:nth-child(2)::before {
-        mask-image: url('phone-icon.svg');
-      }
-      &:nth-child(3)::before {
-        mask-image: url('location-icon.svg');
-      }
     }
 
     a {

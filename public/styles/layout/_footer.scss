@@ -133,31 +133,9 @@
     align-items: center;
     gap: 0.5rem;
 
-    &::before {
-      content: '';
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      background: currentColor;
-      mask-position: center;
-      mask-repeat: no-repeat;
-      mask-size: contain;
-    }
-
     &:hover {
       background: rgba(255, 255, 255, 0.1);
       transform: translateY(-2px);
-    }
-
-    // Social icons
-    &[aria-label='Facebook']::before {
-      mask-image: url('facebook-icon.svg');
-    }
-    &[aria-label='Twitter']::before {
-      mask-image: url('twitter-icon.svg');
-    }
-    &[aria-label='LinkedIn']::before {
-      mask-image: url('linkedin-icon.svg');
     }
   }
 

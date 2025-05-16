@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crowd Trust</title>
-    <link rel="stylesheet" href="../styles/style.css">
+    <title>Crowd Trust - Register</title>
+    <link rel="stylesheet" href="../../styles/style.css">
 </head>
 
 <body>
@@ -40,18 +40,19 @@
         <div class="auth-form-container">
             <header class="auth-header">
                 <h2>Create your account</h2>
-                <p>Join as a creator, backer, or both.</p>
+                <p>Join as a backer or campaigner</p>
             </header>
 
-            <form class="auth-form" id="signupForm">
+            <form class="auth-form" id="register-form">
                 <div class="form-group">
-                    <label for="fullName">Full Name</label>
-                    <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required placeholder="Enter your full name">
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" required placeholder="Enter your email">
+                    <p id="email-error" class="hidden">Email already exists.</p>
                 </div>
 
                 <div class="form-group">
@@ -61,22 +62,22 @@
                         <span class="strength-bar"></span>
                         <span class="strength-bar"></span>
                         <span class="strength-bar"></span>
-                        <span class="strength-text">Password strength</span>
+                        <span class="strength-text"></span>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="userType">I want to join as a:</label>
+                    <label for="role">I want to join as a:</label>
                     <div class="radio-group">
                         <label class="radio-option">
-                            <input type="radio" name="userType" value="backer" checked>
+                            <input type="radio" name="role" value="backer" checked>
                             <span class="radio-custom"></span>
                             <span>Backer (support projects)</span>
                         </label>
                         <label class="radio-option">
-                            <input type="radio" name="userType" value="creator">
+                            <input type="radio" name="role" value="campaigner">
                             <span class="radio-custom"></span>
-                            <span>Creator (start projects)</span>
+                            <span>Campaigner (start projects)</span>
                         </label>
                     </div>
                 </div>
@@ -96,10 +97,21 @@
                     <p>Already have an account? <a href="login.html">Log in</a></p>
                 </div>
             </form>
+
+            <section class="register-done hidden" id="register-done">
+                <div class="register-done-content">
+                    <h2>Application Successful!</h2>
+                    <p>
+                        Thank you for registering with Crowd Trust. Your application is under review. We will notify you
+                        via email once your account is approved.
+                    </p>
+                    <a href="login.html" class="btn-primary">Go to Login</a>
+                </div>
+            </section>
         </div>
     </main>
 
-    <script src="../js/auth.js" type="module"></script>
+    <script src="../../js/register.js" type="module"></script>
 </body>
 
 </html>
