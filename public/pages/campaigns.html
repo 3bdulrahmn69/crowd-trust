@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crowd Trust - Campaign</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/style.css">
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container header__container">
+      <div class="header__logo">
+        <a href="/" class="logo__link" aria-label="CrowdTrust Home">Crowd Trust</a>
+      </div>
+      <button class="header__toggle-btn" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+      <nav class="header__nav" id="nav-menu">
+        <ul class="nav__links">
+          <li class="nav__item"><a href="/#home" class="nav__link">Home</a></li>
+          <li class="nav__item"><a href="/#about" class="nav__link">About</a></li>
+          <li class="nav__item"><a href="/#campaigns" class="nav__link">Campaigns</a></li>
+          <li class="nav__item"><a href="/#contact" class="nav__link">Contact</a></li>
+          <li class="nav__item"><a href="/#faq" class="nav__link">FAQ</a></li>
+        </ul>
+        <div class="nav__auth">
+          <a href="../pages/auth/login.html" class="btn btn--primary">Login</a>
+          <a href="../pages/auth/register.html" class="btn btn--secondary">Register</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main id="main-content" class="container" tabindex="-1">
+    <!-- Campaign Actions -->
+    <section class="campaign-actions" aria-label="Campaign Actions">
+      <button class="btn btn-primary" id="openDialogBtn1">Create campaign</button>
+      <button id="openDialogBtn2" class="btn btn-primary">Update</button>
+    </section>
+
+    <!-- Campaigns Listing -->
+    <section class="campaign-listing" aria-labelledby="campaigns-heading">
+      <h1 id="campaigns-heading" class="visually-hidden">Campaigns</h1>
+      <div id="campaign-container" class="campaign-container">
+        <!-- Example Campaign 1 -->
+        <article class="campaign-card" aria-labelledby="campaign1-title">
+          <figure class="campaign-media">
+            <img
+              src="https://images.unsplash.com/photo-1579389083078-4e7018379f7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+              alt="Medical equipment">
+            <figcaption class="campaign-category-badge">
+              <i class="fas fa-heartbeat" aria-hidden="true"></i>
+              <span>Medical</span>
+            </figcaption>
+          </figure>
+          <div class="campaign-content">
+            <header class="campaign-header">
+              <h2 id="campaign1-title" class="campaign-title">Help Save Children's Hospital</h2>
+              <p class="campaign-creator">By <span>Healthcare Foundation</span></p>
+            </header>
+            <p class="campaign-description">
+              Supporting our local children's hospital with life-saving equipment and facilities for underprivileged
+              families.
+            </p>
+            <div class="campaign-progress" aria-label="Funding Progress">
+              <div class="progress-stats">
+                <span class="amount-raised">$42,500 raised</span>
+                <span class="funding-goal">of $50,000 goal</span>
+              </div>
+              <div class="progress-bar" aria-hidden="true">
+                <div class="progress-fill" style="width: 85%"></div>
+              </div>
+            </div>
+            <dl class="campaign-meta">
+              <div class="meta-item">
+                <dt><i class="fas fa-users" aria-hidden="true"></i></dt>
+                <dd>142 backers</dd>
+              </div>
+              <div class="meta-item">
+                <dt><i class="fas fa-clock" aria-hidden="true"></i></dt>
+                <dd>15 days left</dd>
+              </div>
+            </dl>
+            <button class="btn btn-primary">Support Now</button>
+          </div>
+        </article>
+
+        <!-- Example Campaign 2 -->
+        <article class="campaign-card" aria-labelledby="campaign2-title">
+          <figure class="campaign-media">
+            <img
+              src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80"
+              alt="Education materials">
+            <figcaption class="campaign-category-badge">
+              <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+              <span>Education</span>
+            </figcaption>
+          </figure>
+          <div class="campaign-content">
+            <header class="campaign-header">
+              <h2 id="campaign2-title" class="campaign-title">Digital Classroom Initiative</h2>
+              <p class="campaign-creator">By <span>Future Learners Org</span></p>
+            </header>
+            <p class="campaign-description">
+              Providing tablets and digital learning resources to underfunded schools in rural communities.
+            </p>
+            <div class="campaign-progress" aria-label="Funding Progress">
+              <div class="progress-stats">
+                <span class="amount-raised">$18,250 raised</span>
+                <span class="funding-goal">of $30,000 goal</span>
+              </div>
+              <div class="progress-bar" aria-hidden="true">
+                <div class="progress-fill" style="width: 61%"></div>
+              </div>
+            </div>
+            <dl class="campaign-meta">
+              <div class="meta-item">
+                <dt><i class="fas fa-users" aria-hidden="true"></i></dt>
+                <dd>89 backers</dd>
+              </div>
+              <div class="meta-item">
+                <dt><i class="fas fa-clock" aria-hidden="true"></i></dt>
+                <dd>28 days left</dd>
+              </div>
+            </dl>
+            <button class="btn btn-primary">Support Now</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Campaign Categories -->
+    <section class="category-section" aria-labelledby="categories-heading">
+      <div class="container">
+        <h2 id="categories-heading" class="section-title">
+          <i class="fas fa-tags" aria-hidden="true"></i>
+          Campaign Categories
+        </h2>
+        <div class="category-grid" id="category-grid" aria-live="polite">
+          <!-- Categories will be dynamically inserted here -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Update Campaign Dialog -->
+  <dialog id="updateDialog" aria-modal="true">
+    <div class="modal" id="update-form-modal">
+      <div class="modal-content">
+        <button type="button" class="close-modal" aria-label="Close dialog">&times;</button>
+        <h2>Post Campaign Update</h2>
+        <form id="update-form">
+          <input type="hidden" id="update-campaign-id">
+          <div class="form-group">
+            <label for="update-title">Title</label>
+            <input type="text" id="update-title" required>
+          </div>
+          <div class="form-group">
+            <label for="update-content">Content</label>
+            <textarea id="update-content" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Post Update</button>
+        </form>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Create Campaign Dialog -->
+  <dialog id="campaignDialog" aria-modal="true">
+    <div class="modal" id="campaign-form-modal">
+      <div class="modal-content">
+        <button type="button" class="close-modal" aria-label="Close dialog">&times;</button>
+        <h2>Create New Campaign</h2>
+        <form id="campaign-form">
+          <div class="form-group">
+            <label for="campaign-title">Title</label>
+            <input type="text" id="campaign-title" required>
+          </div>
+          <div class="form-group">
+            <label for="campaign-description">Description</label>
+            <textarea id="campaign-description" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="campaign-goal">Funding Goal ($)</label>
+            <input type="number" id="campaign-goal" min="100" required>
+          </div>
+          <div class="form-group">
+            <label for="campaign-deadline">Deadline</label>
+            <input type="date" id="campaign-deadline" required>
+          </div>
+          <div class="form-group">
+            <label for="campaign-image">Cover Image</label>
+            <input type="file" id="campaign-image" accept="image/*">
+            <div id="image-preview"></div>
+          </div>
+          <div class="form-group">
+            <label>Rewards</label>
+            <div id="rewards-container">
+              <div class="reward-item">
+                <input type="text" placeholder="Reward title" class="reward-title" required>
+                <input type="number" placeholder="Amount" min="1" class="reward-amount" required>
+                <textarea placeholder="Description" class="reward-description" required></textarea>
+                <button type="button" class="btn btn-secondary remove-reward">Remove</button>
+              </div>
+            </div>
+            <button type="button" class="btn btn-secondary" id="add-reward">Add Reward</button>
+          </div>
+          <button type="submit" class="btn btn-primary">Create Campaign</button>
+        </form>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="container footer__container">
+      <div class="footer__brand">
+        <a href="/" class="logo__link" aria-label="Crowd Trust Home">Crowd Trust</a>
+        <p class="footer__description">
+          Empowering communities through transparency and trust. Join us to make an impact, one campaign at a time.
+        </p>
+      </div>
+      <nav class="footer__nav" aria-label="Footer Navigation">
+        <ul class="footer__links">
+          <li><a href="/#home">Home</a></li>
+          <li><a href="/#about">About</a></li>
+          <li><a href="/#campaigns">Campaigns</a></li>
+          <li><a href="/#contact">Contact</a></li>
+          <li><a href="/#faq">FAQ</a></li>
+        </ul>
+      </nav>
+      <div class="footer__info">
+        <p class="footer__email">Email: <a href="mailto:info@crowdtrust.org">info@crowdtrust.org</a></p>
+        <div class="footer__social">
+          <a href="#" aria-label="Facebook" class="footer__social-link">Facebook</a>
+          <a href="#" aria-label="Twitter" class="footer__social-link">Twitter</a>
+          <a href="#" aria-label="LinkedIn" class="footer__social-link">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="container">
+        <p class="footer__copy">&copy; 2023 Crowd Trust. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/campaign.js"></script>
+  <script src="../js/categories.js"></script>
+</body>
+
+</html>

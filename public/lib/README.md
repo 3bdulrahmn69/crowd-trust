@@ -29,12 +29,14 @@ npm run start
   "email": "jane@example.com",
   "password": "hashed_or_plain_password",
   "role": "campaigner",
-  "isActive": true
+  "isActive": true,
+  "isApproved": true,
 }
 ```
 
 - `role`: Defines access level ("admin", "backer", or "campaigner")
 - `isActive`: Used to ban/unban accounts
+- `isApproved`: Admin sets this to `true` for campaigners
 
 ### 🧩 Functions
 

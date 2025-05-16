@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crowd Trust</title>
-    <link rel="stylesheet" href="../styles/style.css">
+    <title>Crowd Trust - Login</title>
+    <link rel="stylesheet" href="../../styles/style.css">
 </head>
 
 <body>
@@ -42,6 +42,9 @@
                 <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" required placeholder="Enter your password">
+                    <p class="error-message hidden" id="errorMessage">
+                        Invalid email or password
+                    </p>
                     <a href="#" class="forgot-password">Forgot password?</a>
                 </div>
 
@@ -79,13 +82,13 @@
                 </div>
 
                 <div class="auth-footer">
-                    <p>New to FundFlow? <a href="singup.html">Create an account</a></p>
+                    <p>New to Crowd Trust? <a href="register.html">Create an account</a></p>
                 </div>
             </form>
         </div>
     </main>
 
-    <script src="../js/auth.js" type="module"></script>
+    <script src="../../js/login.js" type="module"></script>
 </body>
 
 </html>

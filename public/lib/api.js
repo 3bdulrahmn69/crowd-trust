@@ -2,13 +2,32 @@ const BASE_URL = 'http://localhost:3000';
 
 // TOPIC: All User API calls
 async function registerUser(userData) {
+  const checkRes = await fetch(
+    `${BASE_URL}/users?email=${encodeURIComponent(userData.email)}`
+  );
+  const existingUsers = await checkRes.json();
+
+  if (existingUsers.length > 0) {
+    return {
+      error: 'Email already exists.',
+    };
+  }
+
+  // Proceed to register
   const res = await fetch(`${BASE_URL}/users`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(userData),
   });
+
+  if (!res.ok) {
+    return {
+      error: 'Registration failed. Please try again.',
+    };
+  }
+
   return await res.json();
-} // Register a new user (backer or campaigner)
+} // Register a new user
 
 async function login(email, password) {
   const res = await fetch(`${BASE_URL}/users?email=${email}`);
@@ -148,6 +167,13 @@ async function getUserPledgeToCampaign(userId, campaignId) {
   return await res.json();
 } // Get specific pledge by user + campaign
 
+async function getUniquePledgesByCampaign(campaignId) {
+  const res = await fetch(
+    `${BASE_URL}/unique-pledges?campaignId=${campaignId}`
+  );
+  return await res.json();
+}
+
 // TOPIC: All Updates API calls
 async function postCampaignUpdate(updateData) {
   const res = await fetch(`${BASE_URL}/updates`, {
@@ -186,6 +212,7 @@ export {
   getPledgesByUser,
   getPledgesByCampaign,
   getUserPledgeToCampaign,
+  getUniquePledgesByCampaign,
   postCampaignUpdate,
   getUpdatesByCampaign,
 };

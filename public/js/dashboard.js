@@ -6,7 +6,7 @@ import {
   getUserById,
   updateCampaign,
   updateUser,
-} from './api.js';
+} from '../lib/api.js';
 
 // Handle Dashboard Navigation
 const buttons = document.querySelectorAll('.dashboard__btn');

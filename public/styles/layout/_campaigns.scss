@@ -1,0 +1,85 @@
+.campaigns {
+  padding: 8rem 1rem;
+  background: linear-gradient(175deg, #f8fafc 0%, #f1f5f9 100%);
+  position: relative;
+  overflow: hidden;
+
+  &__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .section__title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, #2563eb, #3b82f6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    &::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%);
+      margin: 1rem auto 2rem;
+      border-radius: 2px;
+    }
+  }
+
+  .section__subtitle {
+    text-align: center;
+    font-size: 1.25rem;
+    color: #475569;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto 3rem;
+
+    @media (max-width: 768px) {
+      font-size: 1.1rem;
+    }
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+  }
+
+  .explore__button {
+    @include flex-center();
+    padding-top: 2rem;
+  }
+
+  // Animated background elements
+  &::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: linear-gradient(45deg, #bfdbfe 0%, #93c5fd 100%);
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    opacity: 0.1;
+    animation: blob-animation 20s infinite linear;
+  }
+}
+
+@keyframes blob-animation {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.2);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
