@@ -6,7 +6,7 @@ import {
   getUserByCampaignId,
   getUserById,
   updateUser,
-} from './api.js';
+} from '../lib/api.js';
 
 const user = {
     id: "4",

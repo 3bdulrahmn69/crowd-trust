@@ -89,7 +89,10 @@ function saveUserData(user) {
     name: user.name,
     role: user.role,
   };
-  console.log('User data saved:', user);
+  // console.log('User data saved:', user);
+  sessionStorage.setItem('user', JSON.stringify(user));
+  const userData = JSON.parse(sessionStorage.getItem('user'));
+  return userData;
 }
 
 export { imageToBase64, createCampaignCard, saveUserData };

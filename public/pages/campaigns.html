@@ -47,93 +47,10 @@
     </section>
 
     <!-- Campaigns Listing -->
-    <section class="campaign-listing" aria-labelledby="campaigns-heading">
+    <section class="campaign-listing" id="cardContainer" aria-labelledby="campaigns-heading">
       <h1 id="campaigns-heading" class="visually-hidden">Campaigns</h1>
       <div id="campaign-container" class="campaign-container">
-        <!-- Example Campaign 1 -->
-        <article class="campaign-card" aria-labelledby="campaign1-title">
-          <figure class="campaign-media">
-            <img
-              src="https://images.unsplash.com/photo-1579389083078-4e7018379f7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-              alt="Medical equipment">
-            <figcaption class="campaign-category-badge">
-              <i class="fas fa-heartbeat" aria-hidden="true"></i>
-              <span>Medical</span>
-            </figcaption>
-          </figure>
-          <div class="campaign-content">
-            <header class="campaign-header">
-              <h2 id="campaign1-title" class="campaign-title">Help Save Children's Hospital</h2>
-              <p class="campaign-creator">By <span>Healthcare Foundation</span></p>
-            </header>
-            <p class="campaign-description">
-              Supporting our local children's hospital with life-saving equipment and facilities for underprivileged
-              families.
-            </p>
-            <div class="campaign-progress" aria-label="Funding Progress">
-              <div class="progress-stats">
-                <span class="amount-raised">$42,500 raised</span>
-                <span class="funding-goal">of $50,000 goal</span>
-              </div>
-              <div class="progress-bar" aria-hidden="true">
-                <div class="progress-fill" style="width: 85%"></div>
-              </div>
-            </div>
-            <dl class="campaign-meta">
-              <div class="meta-item">
-                <dt><i class="fas fa-users" aria-hidden="true"></i></dt>
-                <dd>142 backers</dd>
-              </div>
-              <div class="meta-item">
-                <dt><i class="fas fa-clock" aria-hidden="true"></i></dt>
-                <dd>15 days left</dd>
-              </div>
-            </dl>
-            <button class="btn btn-primary">Support Now</button>
-          </div>
-        </article>
 
-        <!-- Example Campaign 2 -->
-        <article class="campaign-card" aria-labelledby="campaign2-title">
-          <figure class="campaign-media">
-            <img
-              src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80"
-              alt="Education materials">
-            <figcaption class="campaign-category-badge">
-              <i class="fas fa-graduation-cap" aria-hidden="true"></i>
-              <span>Education</span>
-            </figcaption>
-          </figure>
-          <div class="campaign-content">
-            <header class="campaign-header">
-              <h2 id="campaign2-title" class="campaign-title">Digital Classroom Initiative</h2>
-              <p class="campaign-creator">By <span>Future Learners Org</span></p>
-            </header>
-            <p class="campaign-description">
-              Providing tablets and digital learning resources to underfunded schools in rural communities.
-            </p>
-            <div class="campaign-progress" aria-label="Funding Progress">
-              <div class="progress-stats">
-                <span class="amount-raised">$18,250 raised</span>
-                <span class="funding-goal">of $30,000 goal</span>
-              </div>
-              <div class="progress-bar" aria-hidden="true">
-                <div class="progress-fill" style="width: 61%"></div>
-              </div>
-            </div>
-            <dl class="campaign-meta">
-              <div class="meta-item">
-                <dt><i class="fas fa-users" aria-hidden="true"></i></dt>
-                <dd>89 backers</dd>
-              </div>
-              <div class="meta-item">
-                <dt><i class="fas fa-clock" aria-hidden="true"></i></dt>
-                <dd>28 days left</dd>
-              </div>
-            </dl>
-            <button class="btn btn-primary">Support Now</button>
-          </div>
-        </article>
       </div>
     </section>
 
@@ -185,6 +102,10 @@
             <input type="text" id="campaign-title" required>
           </div>
           <div class="form-group">
+            <label for="category">category</label>
+            <input type="text" id="category" required>
+          </div>
+          <div class="form-group">
             <label for="campaign-description">Description</label>
             <textarea id="campaign-description" required></textarea>
           </div>
@@ -213,7 +134,7 @@
             </div>
             <button type="button" class="btn btn-secondary" id="add-reward">Add Reward</button>
           </div>
-          <button type="submit" class="btn btn-primary">Create Campaign</button>
+          <button id="addCardbtn" type="submit" class="btn btn-primary">Create Campaign</button>
         </form>
       </div>
     </div>
@@ -253,8 +174,8 @@
     </div>
   </footer>
 
-  <script src="../js/campaign.js"></script>
-  <script src="../js/categories.js"></script>
+  <script src="../js/campaign.js" type="module"></script>
+  <script src="../js/categories.js" type="module"></script>
 </body>
 
 </html>
