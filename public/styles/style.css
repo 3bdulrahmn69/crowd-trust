@@ -1098,7 +1098,7 @@ img {
   max-width: 1200px;
 }
 
-.btn {
+.btn, .dashboard__logout {
   border: none;
   outline: none;
   display: inline-flex;
@@ -1114,7 +1114,7 @@ img {
   position: relative;
   overflow: hidden;
 }
-.btn:disabled {
+.btn:disabled, .dashboard__logout:disabled {
   opacity: 0.7;
   cursor: not-allowed;
   pointer-events: none;
@@ -1339,6 +1339,19 @@ img {
     flex-wrap: wrap;
   }
 }
+.dashboard__logout {
+  background-color: #ef4444;
+  color: #ffffff;
+  margin-top: auto;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100%;
+}
+.dashboard__logout:hover {
+  background-color: #ed2d2d;
+  transform: scale(1.05);
+}
+
 .dashboard #users {
   height: calc(100vh - 4rem);
   overflow-y: auto;
@@ -1663,7 +1676,7 @@ img {
   margin-top: 12px;
   border-top: 1px solid #f3f4f6;
 }
-.dashboard #campaigns .campaign__actions .btn {
+.dashboard #campaigns .campaign__actions .btn, .dashboard #campaigns .campaign__actions .dashboard__logout {
   padding: 6px 12px;
   font-size: 0.8125rem;
   border-radius: 6px;
@@ -1696,7 +1709,7 @@ img {
   .dashboard #campaigns .campaign__actions {
     flex-wrap: wrap;
   }
-  .dashboard #campaigns .campaign__actions .btn {
+  .dashboard #campaigns .campaign__actions .btn, .dashboard #campaigns .campaign__actions .dashboard__logout {
     flex: 1;
     text-align: center;
   }

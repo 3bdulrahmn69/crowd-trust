@@ -321,3 +321,9 @@ pledgeCampaignFilter.addEventListener('change', applyPledgeFilters);
 pledgeUserFilter.addEventListener('change', applyPledgeFilters);
 
 // Populate campaign filter options
+//logout
+let logoutBtn = document.getElementById(`logout-btn`);
+logoutBtn.addEventListener(`click`, function () {
+  sessionStorage.removeItem(`user`);
+  window.location.href = `/index.html`;
+});
