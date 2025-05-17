@@ -1,9 +1,5 @@
-import {
-  getApprovedCampaigns,
-  getUniquePledgesByCampaign,
-  getUserByCampaignId,
-} from '../lib/api.js';
-import { createCampaignCard } from '../lib/utilities.js';
+import { getApprovedCampaigns } from '../lib/api.js';
+import { createCampaignCard, logout } from '../lib/utilities.js';
 
 const toggleBtn = document.querySelector('.header__toggle-btn');
 const navMenu = document.getElementById('nav-menu');
@@ -28,46 +24,42 @@ displayCampaignPage.addEventListener('click', () => {
   window.location.href = '/pages/campaign.html';
 });
 
-function updateUIForLoggedInUser(user) {
-  const loginIndexbtn = document.getElementById('loginIndexbtn');
-  const registerIndexbtn = document.getElementById('registerIndexbtn');
-  const usercontainer = document.getElementById('usercontainer');
+function updateUIForLoggedInUser(userJSON) {
+  const authButtons = document.getElementById('auth_buttons');
 
-  // Hide login and register buttons
-  registerIndexbtn.classList.add('hidden');
-  loginIndexbtn.classList.add('hidden');
+  const userContainer = document.getElementById('user_container');
+  const userButton = document.getElementById('user_button');
+  const profileList = document.getElementById('profile_list');
+  const logoutBtn = document.getElementById('logout_btn');
 
-  // Create and configure the user button
-  const userbtn = document.createElement('button');
-  userbtn.classList.add('btn', 'btn-primary');
-  userbtn.innerText = `Welcome ${user.name}`;
+  if (!userJSON) {
+    // User not logged in – ensure login/register are visible
+    authButtons?.classList.remove('hidden');
+    userContainer?.classList.add('hidden');
+    return;
+  }
 
-  // Create profile list element if it doesn't exist
+  const user = JSON.parse(userJSON);
 
-  const profilelist = document.createElement('ul');
-  profilelist.id = 'profile-list';
-  profilelist.className = 'profile-list';
-  profilelist.innerHTML = `
-      <li><a href="#">View Profile</a></li>
-      <li><a href="#">Log Out</a></li>
-    `;
+  // Update UI for logged-in user
+  authButtons?.classList.add('hidden');
+  userContainer?.classList.remove('hidden');
+  userButton.textContent = `👋 ${user.name}`;
 
-  // Add event listeners for user button
-  userbtn.addEventListener('click', function () {
-    console.log('User button clicked');
+  // Dropdown toggle on hover
+  userContainer.addEventListener('mouseenter', () => {
+    profileList.classList.remove('hidden');
   });
 
-  userbtn.addEventListener('mouseover', function () {
-    profilelist.style.display = 'block';
-    usercontainer.appendChild(profilelist);
+  userContainer.addEventListener('mouseleave', () => {
+    profileList.classList.add('hidden');
   });
 
-  userbtn.addEventListener('mouseout', function () {
-    profilelist.style.display = 'none';
+  // Logout functionality
+  logoutBtn?.addEventListener('click', () => {
+    logout();
   });
-
-  // Append user button to the container
-  usercontainer.appendChild(userbtn);
 }
 
+// Run on load
 updateUIForLoggedInUser(sessionStorage.getItem('user'));

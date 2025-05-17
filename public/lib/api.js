@@ -32,8 +32,23 @@ async function registerUser(userData) {
 async function login(email, password) {
   const res = await fetch(`${BASE_URL}/users?email=${email}`);
   const users = await res.json();
-  const user = users.find((u) => u.password === password); // Use hashed or secure in real cases
-  return user || null;
+  const user = users.find((u) => u.password === password);
+  if (!user) {
+    return {
+      error: 'Invalid email or password.',
+    };
+  }
+  if (user.isApproved === false) {
+    return {
+      error: 'Your account is not approved yet.',
+    };
+  }
+  if (user.isActive === false) {
+    return {
+      error: 'Your account is banned.',
+    };
+  }
+  return user;
 } // login (validate credentials manually)
 
 async function getAllUsers() {

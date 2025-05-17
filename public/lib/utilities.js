@@ -1,12 +1,32 @@
-import { getUniquePledgesByCampaign, getUserByCampaignId } from './api.js';
+import {
+  getUniquePledgesByCampaign,
+  getUserByCampaignId,
+  getUserById,
+} from './api.js';
 
-async function imageToBase64(url) {
-  const response = await fetch(url);
-  const blob = await response.blob();
+async function imageToBase64(source) {
+  return new Promise(async (resolve, reject) => {
+    let blob;
 
-  return new Promise((resolve) => {
+    // If source is a File, use it directly
+    if (source instanceof File) {
+      blob = source;
+    }
+    // If source is a string, treat it as a URL and fetch the image
+    else if (typeof source === 'string') {
+      try {
+        const response = await fetch(source);
+        blob = await response.blob();
+      } catch (err) {
+        return reject('Failed to fetch image from URL');
+      }
+    } else {
+      return reject('Invalid source provided');
+    }
+
     const reader = new FileReader();
     reader.onloadend = () => resolve(reader.result);
+    reader.onerror = () => reject('Failed to read the file');
     reader.readAsDataURL(blob);
   });
 }
@@ -89,10 +109,73 @@ function saveUserData(user) {
     name: user.name,
     role: user.role,
   };
-  // console.log('User data saved:', user);
   sessionStorage.setItem('user', JSON.stringify(user));
-  const userData = JSON.parse(sessionStorage.getItem('user'));
-  return userData;
+  return user;
 }
 
-export { imageToBase64, createCampaignCard, saveUserData };
+async function verifyUserData(user) {
+  const dbUser = await getUserById(user.id);
+
+  if (!dbUser) {
+    return { error: 'User not found' };
+  }
+  if (dbUser.name !== user.name) {
+    return { error: 'Name mismatch' };
+  }
+  if (dbUser.role !== user.role) {
+    return { error: 'Role mismatch' };
+  }
+
+  return dbUser;
+}
+
+async function getUserData() {
+  const userJSON = sessionStorage.getItem('user');
+  if (!userJSON) return null;
+
+  const user = JSON.parse(userJSON);
+  const verifiedUser = await verifyUserData(user);
+
+  if (verifiedUser.error) {
+    alert("Don't play with storage data");
+    sessionStorage.removeItem('user');
+    return null;
+  }
+
+  return verifiedUser;
+}
+
+function logout() {
+  sessionStorage.removeItem('user');
+  window.location.reload();
+}
+
+async function redirectUser() {
+  const user = await getUserData();
+  if (user) {
+    if (user.role === 'admin') {
+      window.location.replace('/pages/dashboard.html');
+    } else {
+      window.location.replace('/');
+    }
+  }
+}
+
+function uuidv4() {
+  return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
+    (
+      c ^
+      (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
+    ).toString(16)
+  );
+}
+
+export {
+  imageToBase64,
+  createCampaignCard,
+  saveUserData,
+  getUserData,
+  logout,
+  redirectUser,
+  uuidv4,
+};

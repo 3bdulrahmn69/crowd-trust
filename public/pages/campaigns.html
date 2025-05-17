@@ -17,11 +17,13 @@
       <div class="header__logo">
         <a href="/" class="logo__link" aria-label="CrowdTrust Home">Crowd Trust</a>
       </div>
+
       <button class="header__toggle-btn" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-menu">
         <span class="bar"></span>
         <span class="bar"></span>
         <span class="bar"></span>
       </button>
+
       <nav class="header__nav" id="nav-menu">
         <ul class="nav__links">
           <li class="nav__item"><a href="/#home" class="nav__link">Home</a></li>
@@ -30,11 +32,26 @@
           <li class="nav__item"><a href="/#contact" class="nav__link">Contact</a></li>
           <li class="nav__item"><a href="/#faq" class="nav__link">FAQ</a></li>
         </ul>
-        <div class="nav__auth">
-          <a href="../pages/auth/login.html" class="btn btn--primary">Login</a>
-          <a href="../pages/auth/register.html" class="btn btn--secondary">Register</a>
+
+        <div id="auth_container" class="nav__auth">
+          <!-- Show only when user is not logged in -->
+          <div id="auth_buttons" class="auth__buttons">
+            <a href="/pages/auth/login.html" class="btn btn--primary" id="login_index_btn">Login</a>
+            <a href="/pages/auth/register.html" class="btn btn--secondary" id="register_index_btn">Register</a>
+          </div>
+
+          <!-- Show only when user is logged in -->
+          <div id="user_container" class="auth__profile hidden">
+            <button id="user_button" class="btn btn--text">👋 Username</button>
+            <ul id="profile_list" class="profile_list hidden">
+              <li><a href="./pages/user/profile.html">View Profile</a></li>
+              <li><button class="btn btn--danger btn--full" id="logout_btn">Log Out</>
+              </li>
+            </ul>
+          </div>
         </div>
-      </nav>
+    </div>
+    </nav>
     </div>
   </header>
 
@@ -42,8 +59,7 @@
   <main id="main-content" class="container" tabindex="-1">
     <!-- Campaign Actions -->
     <section class="campaign-actions" aria-label="Campaign Actions">
-      <button class="btn btn-primary" id="openDialogBtn1">Create campaign</button>
-      <button id="openDialogBtn2" class="btn btn-primary">Update</button>
+      <button class="btn btn-primary" id="open-dialog">Create campaign</button>
     </section>
 
     <!-- Campaigns Listing -->
@@ -53,89 +69,99 @@
 
       </div>
     </section>
-
-    <!-- Campaign Categories -->
-    <section class="category-section" aria-labelledby="categories-heading">
-      <div class="container">
-        <h2 id="categories-heading" class="section-title">
-          <i class="fas fa-tags" aria-hidden="true"></i>
-          Campaign Categories
-        </h2>
-        <div class="category-grid" id="category-grid" aria-live="polite">
-          <!-- Categories will be dynamically inserted here -->
-        </div>
-      </div>
-    </section>
   </main>
 
-  <!-- Update Campaign Dialog -->
-  <dialog id="updateDialog" aria-modal="true">
-    <div class="modal" id="update-form-modal">
-      <div class="modal-content">
-        <button type="button" class="close-modal" aria-label="Close dialog">&times;</button>
-        <h2>Post Campaign Update</h2>
-        <form id="update-form">
-          <input type="hidden" id="update-campaign-id">
+  <!-- Create Campaign Dialog -->
+  <dialog id="create-dialog" aria-modal="true" class="dialog dialog--create">
+    <div class="dialog__modal">
+      <div class="dialog__content">
+        <div class="dialog__header">
+          <h2 class="dialog__title">Create Campaign</h2>
+          <button type="button" class="dialog__close" aria-label="Close dialog"
+            onclick="document.getElementById('create-dialog').close()">&times;</button>
+        </div>
+        <form id="create-form" class="dialog__form">
+          <!-- Campaign Title -->
           <div class="form-group">
-            <label for="update-title">Title</label>
-            <input type="text" id="update-title" required>
+            <label for="create-title" class="form-group__label">Title</label>
+            <input type="text" id="create-title" name="title" class="form-group__input" required />
           </div>
+
+          <!-- Description -->
           <div class="form-group">
-            <label for="update-content">Content</label>
-            <textarea id="update-content" required></textarea>
+            <label for="create-description" class="form-group__label">Description</label>
+            <textarea id="create-description" name="description" class="form-group__textarea" required></textarea>
           </div>
-          <button type="submit" class="btn btn-primary">Post Update</button>
+
+          <!-- Image Upload -->
+          <div class="form-group">
+            <label for="create-image" class="form-group__label">Image</label>
+            <input type="file" id="create-image" name="image" accept="image/*" class="form-group__file" />
+            <img id="create-image-preview" src="" alt="Campaign image preview"
+              class="form-group__image-preview hidden" />
+          </div>
+
+          <!-- Goal -->
+          <div class="form-group">
+            <label for="create-goal" class="form-group__label">Goal ($)</label>
+            <input type="number" id="create-goal" name="goal" class="form-group__input" required />
+          </div>
+
+          <!-- Deadline -->
+          <div class="form-group">
+            <label for="create-deadline" class="form-group__label">Deadline</label>
+            <input type="date" id="create-deadline" name="deadline" class="form-group__input" required />
+          </div>
+
+          <!-- Category -->
+          <div class="form-group">
+            <label for="create-category" class="form-group__label">Category</label>
+            <select id="create-category" name="category" class="form-group__select" required>
+              <option value="health">Health</option>
+              <option value="tech">Tech</option>
+              <option value="education">Education</option>
+              <option value="environment">Environment</option>
+            </select>
+          </div>
+
+          <!-- Rewards -->
+          <div class="form-group">
+            <label class="form-group__label">Rewards</label>
+            <div id="create-rewards-container" class="form-group__rewards">
+              <!-- Dynamically inserted rewards -->
+            </div>
+            <button type="button" id="create-add-reward-btn" class="form-group__add-reward">+ Add Reward</button>
+          </div>
+
+          <div class="dialog__actions">
+            <button type="button" class="btn btn--cancel"
+              onclick="document.getElementById('create-dialog').close()">Cancel</button>
+            <button type="submit" class="btn btn--submit">Create Campaign</button>
+          </div>
         </form>
       </div>
     </div>
   </dialog>
 
-  <!-- Create Campaign Dialog -->
-  <dialog id="campaignDialog" aria-modal="true">
-    <div class="modal" id="campaign-form-modal">
-      <div class="modal-content">
-        <button type="button" class="close-modal" aria-label="Close dialog">&times;</button>
-        <h2>Create New Campaign</h2>
-        <form id="campaign-form">
-          <div class="form-group">
-            <label for="campaign-title">Title</label>
-            <input type="text" id="campaign-title" required>
-          </div>
-          <div class="form-group">
-            <label for="category">category</label>
-            <input type="text" id="category" required>
-          </div>
-          <div class="form-group">
-            <label for="campaign-description">Description</label>
-            <textarea id="campaign-description" required></textarea>
-          </div>
-          <div class="form-group">
-            <label for="campaign-goal">Funding Goal ($)</label>
-            <input type="number" id="campaign-goal" min="100" required>
-          </div>
-          <div class="form-group">
-            <label for="campaign-deadline">Deadline</label>
-            <input type="date" id="campaign-deadline" required>
-          </div>
-          <div class="form-group">
-            <label for="campaign-image">Cover Image</label>
-            <input type="file" id="campaign-image" accept="image/*">
-            <div id="image-preview"></div>
-          </div>
-          <div class="form-group">
-            <label>Rewards</label>
-            <div id="rewards-container">
-              <div class="reward-item">
-                <input type="text" placeholder="Reward title" class="reward-title" required>
-                <input type="number" placeholder="Amount" min="1" class="reward-amount" required>
-                <textarea placeholder="Description" class="reward-description" required></textarea>
-                <button type="button" class="btn btn-secondary remove-reward">Remove</button>
-              </div>
-            </div>
-            <button type="button" class="btn btn-secondary" id="add-reward">Add Reward</button>
-          </div>
-          <button id="addCardbtn" type="submit" class="btn btn-primary">Create Campaign</button>
-        </form>
+  <!-- Campaign Submitted Dialog -->
+  <dialog id="submitted-dialog" aria-modal="true" class="dialog dialog--submitted">
+    <div class="dialog__modal">
+      <div class="dialog__content">
+        <div class="dialog__header">
+          <h2 class="dialog__title">Campaign Submitted</h2>
+          <button type="button" class="dialog__close" aria-label="Close dialog"
+            onclick="document.getElementById('submitted-dialog').close()">&times;</button>
+        </div>
+        <div class="dialog__body">
+          <p class="dialog__message">
+            Your campaign has been submitted successfully and is awaiting approval. You will be notified once it is
+            reviewed.
+          </p>
+        </div>
+        <div class="dialog__actions">
+          <button type="button" class="btn btn--primary"
+            onclick="document.getElementById('submitted-dialog').close()">OK</button>
+        </div>
       </div>
     </div>
   </dialog>
@@ -175,7 +201,6 @@
   </footer>
 
   <script src="../js/campaign.js" type="module"></script>
-  <script src="../js/categories.js" type="module"></script>
 </body>
 
 </html>

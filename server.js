@@ -1,6 +1,11 @@
 const jsonServer = require('json-server');
+const chokidar = require('chokidar');
+const path = require('path');
+const fs = require('fs');
+
 const server = jsonServer.create();
-const router = jsonServer.router('db.json');
+const dbFile = path.join(__dirname, 'db.json');
+let router = jsonServer.router(dbFile);
 const middlewares = jsonServer.defaults();
 
 server.use(middlewares);
@@ -28,7 +33,16 @@ server.get('/unique-pledges', (req, res) => {
   res.jsonp(uniquePledges);
 });
 
-server.use(router);
+server.use((req, res, next) => {
+  router(req, res, next);
+});
+
 server.listen(3000, () => {
-  console.log('JSON Server is running');
+  console.log('JSON Server is running on port 3000');
+});
+
+// 🔄 Watch db.json for changes
+chokidar.watch(dbFile).on('change', () => {
+  console.log('db.json has changed, reloading...');
+  router = jsonServer.router(dbFile); // reload the router
 });

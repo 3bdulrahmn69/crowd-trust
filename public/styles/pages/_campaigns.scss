@@ -154,78 +154,6 @@ $text-color: #1e293b;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
 }
 
-// Modal Dialogs
-dialog {
-  border: none;
-  border-radius: 1rem;
-  padding: 2rem;
-  max-width: 600px;
-  width: 90%;
-
-  &::backdrop {
-    background: rgba(0, 0, 0, 0.5);
-  }
-}
-
-.modal-content {
-  position: relative;
-
-  .close-modal {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: $secondary-color;
-  }
-}
-
-.form-group {
-  margin-bottom: 1.5rem;
-
-  label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-  }
-
-  input,
-  textarea {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #e2e8f0;
-    border-radius: 0.5rem;
-    transition: border-color 0.2s ease;
-
-    &:focus {
-      outline: none;
-      border-color: $primary-color;
-      box-shadow: 0 0 0 2px rgba($primary-color, 0.1);
-    }
-  }
-}
-
-#rewards-container {
-  margin: 1rem 0;
-
-  .reward-item {
-    margin-bottom: 1rem;
-    padding: 1rem;
-    border: 1px solid #e2e8f0;
-    border-radius: 0.5rem;
-    position: relative;
-  }
-
-  .remove-reward {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-    padding: 0.25rem 0.5rem;
-  }
-}
-
 // Responsive Design
 @media (max-width: 768px) {
   .container {
@@ -234,9 +162,5 @@ dialog {
 
   .campaign-container {
     grid-template-columns: 1fr;
-  }
-
-  dialog {
-    padding: 1rem;
   }
 }

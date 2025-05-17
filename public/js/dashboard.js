@@ -1,5 +1,6 @@
 import {
   deleteCampaign,
+  deleteUser,
   getAllCampaigns,
   getAllPledges,
   getAllUsers,
@@ -51,25 +52,64 @@ const renderUsers = (users) => {
     userRoleTd.textContent = user.role;
     userStatusTd.textContent = user.isActive ? 'Active' : 'Blocked';
 
-    const actionBtn = document.createElement('button');
-    actionBtn.type = 'button';
+    const BlockUnBlock = document.createElement('button');
+    BlockUnBlock.type = 'button';
     if (user.role === 'admin') {
-      actionBtn.textContent = 'Admin';
-      actionBtn.className = 'btn btn--disabled';
+      BlockUnBlock.textContent = 'Admin';
+      BlockUnBlock.className = 'btn btn--disabled';
     } else {
-      actionBtn.textContent = user.isActive ? 'Block' : 'Unblock';
-      actionBtn.className = user.isActive
+      BlockUnBlock.textContent = user.isApproved
+        ? user.isActive
+          ? 'Block'
+          : 'Un Block'
+        : 'Not Approved';
+
+      BlockUnBlock.className = user.isActive
         ? 'btn btn--danger'
         : 'btn btn--success';
-      actionBtn.addEventListener('click', async (e) => {
+      BlockUnBlock.addEventListener('click', async (e) => {
         e.preventDefault();
         e.stopPropagation();
 
         await updateUser(user.id, { isActive: !user.isActive });
-        await loadUsers(); // <-- Refresh the user list
+        await loadUsers();
       });
     }
-    userActionsTd.appendChild(actionBtn);
+
+    const acceptBtn = document.createElement('button');
+    acceptBtn.type = 'button';
+    acceptBtn.textContent = 'Approve';
+    acceptBtn.className = 'btn btn--success';
+    acceptBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      await updateUser(user.id, { isApproved: true });
+      await loadUsers();
+    });
+
+    const rejectBtn = document.createElement('button');
+    rejectBtn.type = 'button';
+    rejectBtn.textContent = 'Reject';
+    rejectBtn.className = 'btn btn--danger';
+    rejectBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      await deleteUser(user.id);
+      await loadUsers();
+    });
+
+    const createdDiv = document.createElement('div');
+    createdDiv.style.cssText =
+      'display: flex; gap: 10px; flex-direction: column;';
+
+    createdDiv.appendChild(acceptBtn);
+    createdDiv.appendChild(rejectBtn);
+
+    user.isApproved
+      ? userActionsTd.appendChild(BlockUnBlock)
+      : userActionsTd.appendChild(createdDiv);
 
     userRow.appendChild(userIdTd);
     userRow.appendChild(userNameTd);

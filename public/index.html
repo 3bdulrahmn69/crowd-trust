@@ -65,14 +65,23 @@
           <li class="nav__item"><a href="#faq" class="nav__link">FAQ</a></li>
         </ul>
 
-        <div id="usercontainer" class="nav__auth">
-          <a href="./pages/auth/login.html" class="btn btn--primary" id="loginIndexbtn">Login</a>
-          <a href="./pages/auth/register.html" class="btn btn--secondary" id="registerIndexbtn">Register</a>
-          <!-- <div class="profile-dropdown">
-  <ul id="profile-list" class="profile-list">
-    <li><a href="./pages/user/profile.html">View Profile</a></li>
-    <li><a href="https://www.google.co.uk/">Log Out</a></li>
-  </ul> -->
+        <div id="auth_container" class="nav__auth">
+          <!-- Show only when user is not logged in -->
+          <div id="auth_buttons" class="auth__buttons">
+            <a href="./pages/auth/login.html" class="btn btn--primary" id="login_index_btn">Login</a>
+            <a href="./pages/auth/register.html" class="btn btn--secondary" id="register_index_btn">Register</a>
+          </div>
+
+          <!-- Show only when user is logged in -->
+          <div id="user_container" class="auth__profile hidden">
+            <button id="user_button" class="btn btn--text">👋 Username</button>
+            <ul id="profile_list" class="profile_list hidden">
+              <li><a href="./pages/user/profile.html">View Profile</a></li>
+              <li><a href="./pages/campaigns.html">Campaigns</a></li>
+              <li><button class="btn btn--danger btn--full" id="logout_btn">Log Out</>
+              </li>
+            </ul>
+          </div>
         </div>
     </div>
     </nav>
@@ -241,8 +250,6 @@
 
   <footer class="footer">
     <div class="container footer__container">
-
-      <!-- Logo & Description -->
       <div class="footer__brand">
         <a href="/" class="logo__link" aria-label="Crowd Trust Home">Crowd Trust</a>
         <p class="footer__description">

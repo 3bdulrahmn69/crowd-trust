@@ -1,0 +1,246 @@
+// Dialog Variables
+$dialog-bg: #ffffff;
+$dialog-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+$primary-color: #3b82f6;
+$secondary-color: #64748b;
+$danger-color: #ef4444;
+
+.dialog {
+  border: none;
+  border-radius: 1rem;
+  padding: 2rem;
+  max-width: 800px;
+  width: 90%;
+  background: $dialog-bg;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+
+  &::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+  }
+
+  &__modal {
+    position: relative;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0;
+  }
+
+  &__close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: $secondary-color;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    padding: 0.5rem;
+    line-height: 1;
+
+    &:hover {
+      color: $danger-color;
+    }
+  }
+
+  &__form {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(2, 1fr);
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 1rem;
+
+  &__label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #475569;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  &__input,
+  &__textarea,
+  &__select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+    background: #f8fafc;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+      background: white;
+    }
+  }
+
+  &__textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  &__file {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px dashed #e2e8f0;
+    border-radius: 0.5rem;
+    background: #f8fafc;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      border-color: $primary-color;
+      background: rgba($primary-color, 0.05);
+    }
+
+    &::-webkit-file-upload-button {
+      visibility: hidden;
+    }
+  }
+
+  &__image-preview {
+    display: block;
+    max-width: 100%;
+    max-height: 200px;
+    margin-top: 1rem;
+    border-radius: 0.5rem;
+    object-fit: cover;
+  }
+
+  &__rewards {
+    display: grid;
+    gap: 1rem;
+  }
+
+  &__add-reward {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px dashed #e2e8f0;
+    border-radius: 0.5rem;
+    background: transparent;
+    color: $secondary-color;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 1rem;
+
+    &:hover {
+      border-color: $primary-color;
+      color: $primary-color;
+      background: rgba($primary-color, 0.05);
+    }
+  }
+}
+
+.reward-item {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  background: #f8fafc;
+
+  & input,
+  & textarea {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.25rem;
+  }
+
+  & button {
+    background: $danger-color;
+    color: white;
+    border: none;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: darken($danger-color, 10%);
+    }
+  }
+}
+
+.dialog__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+  grid-column: 1 / -1;
+
+  .btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+
+    &--cancel {
+      background: #f1f5f9;
+      color: $secondary-color;
+
+      &:hover {
+        background: #e2e8f0;
+      }
+    }
+
+    &--submit {
+      background: $primary-color;
+      color: white;
+
+      &:hover {
+        background: darken($primary-color, 10%);
+      }
+    }
+  }
+}
+
+// Custom Select Arrow
+.form-group__select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1em;
+}
+
+@media (max-width: 480px) {
+  .dialog {
+    padding: 1.5rem;
+    width: 95%;
+  }
+
+  .dialog__title {
+    font-size: 1.25rem;
+  }
+
+  .reward-item {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

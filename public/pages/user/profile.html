@@ -85,6 +85,84 @@
     </section>
   </main>
 
+  <!-- Update Campaign Dialog -->
+  <dialog id="update-dialog" aria-modal="true" class="dialog dialog--update">
+    <div class="dialog__modal">
+      <div class="dialog__content">
+        <div class="dialog__header">
+          <h2 class="dialog__title">Update Campaign</h2>
+          <button type="button" class="dialog__close" aria-label="Close dialog">&times;</button>
+        </div>
+        <form id="update-form" class="dialog__form">
+          <input type="hidden" id="update-campaign-id" name="campaignId" />
+
+          <!-- Campaign Title -->
+          <div class="form-group">
+            <label for="update-title" class="form-group__label">Title</label>
+            <input type="text" id="update-title" name="title" class="form-group__input" required />
+          </div>
+
+          <!-- Description -->
+          <div class="form-group">
+            <label for="update-description" class="form-group__label">Description</label>
+            <textarea id="update-description" name="description" class="form-group__textarea" required></textarea>
+          </div>
+
+          <!-- Campaign Image Preview and Upload -->
+          <div class="form-group">
+            <label for="update-image" class="form-group__label">Image</label>
+            <input type="file" id="update-image" name="image" accept="image/*" class="form-group__file" />
+            <img id="update-image-preview" src="" alt="Campaign image preview" class="form-group__image-preview" />
+          </div>
+
+          <!-- Goal -->
+          <div class="form-group">
+            <label for="update-goal" class="form-group__label">Goal ($)</label>
+            <input type="number" id="update-goal" name="goal" class="form-group__input" required />
+          </div>
+
+          <!-- Raised -->
+          <div class="form-group">
+            <label for="update-raised" class="form-group__label">Raised ($)</label>
+            <input type="number" id="update-raised" name="raised" class="form-group__input" required />
+          </div>
+
+          <!-- Deadline -->
+          <div class="form-group">
+            <label for="update-deadline" class="form-group__label">Deadline</label>
+            <input type="date" id="update-deadline" name="deadline" class="form-group__input" required />
+          </div>
+
+          <!-- Category -->
+          <div class="form-group">
+            <label for="update-category" class="form-group__label">Category</label>
+            <select id="update-category" name="category" class="form-group__select" required>
+              <option value="health">Health</option>
+              <option value="tech">Tech</option>
+              <option value="education">Education</option>
+              <option value="environment">Environment</option>
+            </select>
+          </div>
+
+          <!-- Rewards -->
+          <div class="form-group">
+            <label class="form-group__label">Rewards</label>
+            <div id="rewards-container" class="form-group__rewards">
+              <!-- Dynamically insert reward inputs here -->
+            </div>
+            <button type="button" id="add-reward-btn" class="form-group__add-reward">+ Add Reward</button>
+          </div>
+
+          <div class="dialog__actions">
+            <button type="button" class="btn btn--cancel"
+              onclick="document.getElementById('update-dialog').close()">Cancel</button>
+            <button type="submit" class="btn btn--submit">Post Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </dialog>
+
   <script src="../../js/profile.js" type="module"></script>
 </body>
 

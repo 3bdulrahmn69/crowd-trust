@@ -1,5 +1,11 @@
 import { registerUser } from '../lib/api.js';
-import { User } from '../lib/user.js';
+import { User } from '../lib/classes.js';
+import { redirectUser } from '../lib/utilities.js';
+import { uuidv4 } from '../lib/utilities.js';
+
+(async () => {
+  await redirectUser();
+})();
 
 const strengthBars = document.querySelectorAll('.strength-bar');
 const strengthText = document.querySelector('.strength-text');
@@ -52,12 +58,13 @@ document
     e.preventDefault();
     e.stopPropagation();
 
+    const id = uuidv4();
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     const role = document.querySelector('input[name="role"]:checked').value;
 
-    const user = new User(name, email, password, role);
+    const user = new User(id, name, email, password, role);
     const res = await registerUser(user);
 
     if (res.error) {

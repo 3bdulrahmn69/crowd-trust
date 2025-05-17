@@ -5,206 +5,368 @@ import {
   getPledgesByUser,
   getUserByCampaignId,
   getUserById,
+  updateCampaign,
   updateUser,
 } from '../lib/api.js';
+import { getUserData, imageToBase64 } from '../lib/utilities.js';
 
-const user = {
-    id: "4",
-    name: "Dave Brown",
-    email: "sayed@gmail.com ",
-    password: "dave123",
-    role: "campaigner",
-    isActive: true 
-};
-
-sessionStorage.setItem('user', JSON.stringify(user));
-const userData = JSON.parse(sessionStorage.getItem('user'));
-// Get the user's role from localStorage or fallback to 'campaigner'
-const tabs = document.querySelectorAll('.nav-tab');
-const sections = document.querySelectorAll('.profile-tab');
-
-const role = userData.role || 'campaigner';
-
-document.getElementById('hey-message').innerHTML = `Hey, <strong class="name">${
-  userData.name.split(' ')[0]
-}</strong> welcome back!`;
-document.title = `Crowd Trust - ${userData.name.split(' ')[0]} Profile`;
-
-if (role === 'campaigner') {
-  document.querySelector('[data-tab="campaigns"]').style.display =
-    'inline-block';
-} else if (role === 'backer') {
-  document.querySelector('[data-tab="pledges"]').style.display = 'inline-block';
+function redirectToLogin() {
+  window.location.href = '../auth/login.html';
 }
 
-// Tab switching logic
-tabs.forEach((btn) => {
-  btn.addEventListener('click', () => {
-    const selectedTab = btn.getAttribute('data-tab');
-    sections.forEach((sec) => {
-      sec.style.display = sec.id === `${selectedTab}-tab` ? 'block' : 'none';
+function setupGreeting({ name }) {
+  const firstName = name.split(' ')[0];
+  document.getElementById(
+    'hey-message'
+  ).innerHTML = `Hey, <strong class="name">${firstName}</strong> welcome back!`;
+  document.title = `Crowd Trust - ${firstName} Profile`;
+}
+
+function setupTabs(role) {
+  const tabs = document.querySelectorAll('.nav-tab');
+  const sections = document.querySelectorAll('.profile-tab');
+
+  if (role === 'campaigner') {
+    document
+      .querySelector('[data-tab="campaigns"]')
+      ?.style.setProperty('display', 'inline-block');
+  } else if (role === 'backer') {
+    document
+      .querySelector('[data-tab="pledges"]')
+      ?.style.setProperty('display', 'inline-block');
+  }
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const selectedTab = tab.dataset.tab;
+      sections.forEach((sec) => {
+        sec.style.display = sec.id === `${selectedTab}-tab` ? 'block' : 'none';
+      });
+      tabs.forEach((t) => t.classList.remove('active'));
+      tab.classList.add('active');
     });
-
-    tabs.forEach((tab) => tab.classList.remove('active'));
-    btn.classList.add('active');
   });
-});
-const settingsTab = document.querySelector('[data-tab="settings"]');
-if (settingsTab) settingsTab.click();
 
-// Display user data
-document.querySelector('#user-name').textContent = userData.name;
-document.querySelector('#user-email').textContent = userData.email;
-document.querySelector('#user-role').textContent = userData.role;
+  document.querySelector('[data-tab="settings"]')?.click();
+}
 
-// Display campaigns for campaigners
+function setupProfileInfo({ name, email, role }) {
+  document.querySelector('#user-name').textContent = name;
+  document.querySelector('#user-email').textContent = email;
+  document.querySelector('#user-role').textContent = role;
+}
 
-const createCampaignCard = (campaign) => {
-  const progress = Math.min(
-    100,
-    Math.floor((campaign.raised / campaign.goal) * 100)
-  );
+async function renderCampaigns(userId) {
+  const campaigns = await getCampaignsByUser(userId);
+  const container = document.getElementById('campaigns-list');
+  container.innerHTML = '';
 
-  const card = document.createElement('div');
-  card.className = 'campaign-card';
-  card.innerHTML = `
-    <h3 class="campaign__title">${campaign.title}</h3>
-    <p class="campaign__description">${campaign.description}</p>
-    <p class="campaign__goal">Goal: $${campaign.goal} Raised: $${campaign.raised}</p>
-    <div class="campaign__progress-bar">
-      <div class="campaign__progress" style="width: ${progress}%"></div>
-    </div>
-    <p>Category $${campaign.category}</p>
-    <img class="campaign__image" src="${campaign.image}" alt="${campaign.title}" />
-  `;
-
-  return card;
-};
-
-const campaignsContainer = document.getElementById('campaigns-list');
-
-async function displayCampaigns() {
-  const campaigns = await getCampaignsByUser(userData.id);
-  campaignsContainer.innerHTML = ''; // Clear existing content
-
-  if (campaigns.length === 0) {
-    campaignsContainer.innerHTML = '<p>No campaigns found.</p>';
+  if (!campaigns.length) {
+    container.innerHTML = '<p>No campaigns found.</p>';
     return;
   }
 
-  campaigns.forEach((campaign) => {
-    const card = createCampaignCard(campaign);
-    campaignsContainer.appendChild(card);
-  });
+  campaigns.forEach(
+    ({ title, description, goal, raised, image, category, id }) => {
+      const progress = Math.min(100, Math.floor((raised / goal) * 100));
+      const card = document.createElement('div');
+      card.className = 'campaign-card';
+      card.innerHTML = `
+      <h3 class="campaign__title">${title}</h3>
+      <p class="campaign__description">${description}</p>
+      <p class="campaign__goal">Goal: $${goal} Raised: $${raised}</p>
+      <div class="campaign__progress-bar">
+        <div class="campaign__progress" style="width: ${progress}%"></div>
+      </div>
+      <p>Category: ${category}</p>
+      <img class="campaign__image" src="${image}" alt="${title}" />
+      <button class="btn btn--primary btn--full campaign__edit" data-id="${id}">Edit</button>
+    `;
+      container.appendChild(card);
+    }
+  );
 }
-displayCampaigns();
 
-// Display pledges for backers
+async function renderPledges(userId) {
+  const pledges = await getPledgesByUser(userId);
+  const container = document.getElementById('pledges-list');
+  container.innerHTML = '';
 
-const pledgesContainer = document.getElementById('pledges-list');
-
-const createPledgeCard = async (pledge) => {
-  let { name } = await getUserByCampaignId(pledge.campaignId);
-  let { title, rewards } = await getCampaignById(pledge.campaignId);
-  rewards = rewards.find((reward) => reward.id === pledge.rewardId);
-  const card = document.createElement('div');
-  card.className = 'pledge-card';
-  card.innerHTML = `
-    <p><strong>Amount:</strong> $${pledge.amount}</p>
-    <p><strong>Campaign Title:</strong> ${title}</p>
-    <p><strong>Campaigner Name:</strong> ${name}</p>
-    <p><strong>Reward:</strong> ${rewards.title}</p>
-    <p><strong>Reward Description:</strong> ${rewards.amount}</p>
-  `;
-
-  return card;
-};
-
-async function displayPledges() {
-  const pledges = await getPledgesByUser(userData.id);
-  pledgesContainer.innerHTML = ''; // Clear existing content
-
-  if (pledges.length === 0) {
-    pledgesContainer.innerHTML = '<p>No pledges found.</p>';
+  if (!pledges.length) {
+    container.innerHTML = '<p>No pledges found.</p>';
     return;
   }
 
-  pledges.forEach(async (pledge) => {
-    const card = await createPledgeCard(pledge);
-    pledgesContainer.appendChild(card);
-  });
+  for (const { campaignId, rewardId, amount } of pledges) {
+    const campaign = await getCampaignById(campaignId);
+    const campaigner = await getUserByCampaignId(campaignId);
+    const reward = campaign.rewards.find((r) => r.id === rewardId);
+
+    const card = document.createElement('div');
+    card.className = 'pledge-card';
+    card.innerHTML = `
+      <p><strong>Amount:</strong> $${amount}</p>
+      <p><strong>Campaign Title:</strong> ${campaign.title}</p>
+      <p><strong>Campaigner Name:</strong> ${campaigner.name}</p>
+      <p><strong>Reward:</strong> ${reward?.title || 'N/A'}</p>
+      <p><strong>Reward Description:</strong> ${reward?.amount || 'N/A'}</p>
+    `;
+    container.appendChild(card);
+  }
 }
-displayPledges();
 
-// Display settings
-document.getElementById('email-form').addEventListener('submit', (e) => {
-  e.preventDefault();
-  e.stopPropagation();
+function setupEmailForm(userId) {
+  document
+    .getElementById('email-form')
+    .addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const feedback = document.getElementById('email-feedback');
+      const newEmail = document.getElementById('new-email').value;
+      const password = document.getElementById('current-password-email').value;
 
-  const emailFeedback = document.getElementById('email-feedback');
-  getUserById(userData.id).then(async (user) => {
-    const newEmail = document.getElementById('new-email').value;
-    const password = document.getElementById('current-password-email').value;
-    if (user.password === password) {
-      await updateUser(userData.id, { email: newEmail });
-      emailFeedback.classList.remove('feedback-error');
-      emailFeedback.classList.add('feedback-success');
-      emailFeedback.textContent = 'Email updated successfully.';
-      document.getElementById('new-email').value = '';
-      document.getElementById('current-password-email') = '';
-      setTimeout(() => {
-        emailFeedback.textContent = '';
-      }, 1500);
-    } else {
-      emailFeedback.classList.remove('feedback-success'); 
-      emailFeedback.classList.add('feedback-error');
-      emailFeedback.textContent = 'Invalid email or password.';
-      setTimeout(() => {
-        emailFeedback.textContent = '';
-      }, 1500);
-    }
-  });
-});
+      try {
+        const user = await getUserById(userId);
+        if (user.password === password) {
+          await updateUser(userId, { email: newEmail });
+          feedback.className = 'feedback-success';
+          feedback.textContent = 'Email updated successfully.';
+          e.target.reset();
+        } else throw new Error();
+      } catch {
+        feedback.className = 'feedback-error';
+        feedback.textContent = 'Invalid email or password.';
+      }
 
-document.getElementById('password-form').addEventListener('submit', (e) => {
-  e.preventDefault();
-  e.stopPropagation();
+      setTimeout(() => (feedback.textContent = ''), 1500);
+    });
+}
 
-  const passwordFeedback = document.getElementById('password-feedback');
-  getUserById(userData.id).then(async (user) => {
-    const currentPassword = document.getElementById('current-password').value;
-    const newPassword = document.getElementById('new-password').value;
-    if (user.password === currentPassword) {
-      await updateUser(userData.id, { password: newPassword });
-      passwordFeedback.classList.add('feedback-success');
-      passwordFeedback.textContent = 'Password updated successfully.';
-      document.getElementById('new-password').value = '';
-      document.getElementById('current-password').value = '';
-      setTimeout(() => {
-        passwordFeedback.textContent = '';
-      }, 1500);
-    } else {
-      passwordFeedback.classList.add('feedback-error');
-      passwordFeedback.textContent = 'Invalid email or password.';
-      setTimeout(() => {
-        passwordFeedback.textContent = '';
-      }, 1500);
-    }
-  });
-});
+function setupPasswordForm(userId) {
+  document
+    .getElementById('password-form')
+    .addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const feedback = document.getElementById('password-feedback');
+      const current = document.getElementById('current-password').value;
+      const newPass = document.getElementById('new-password').value;
 
-document.getElementById('delete-user').addEventListener('click', async (e) => {
-  let sure = confirm(
-    'Are you sure you want to delete your account? This action cannot be undone.'
-  );
-  if (sure) {
-    const res = await deleteUser(userData.id);
-    if (res) {
-      alert('Account deleted successfully.');
-      sessionStorage.removeItem('user');
-      window.location.href = '../';
-    } else {
+      try {
+        const user = await getUserById(userId);
+        if (user.password === current) {
+          await updateUser(userId, { password: newPass });
+          feedback.className = 'feedback-success';
+          feedback.textContent = 'Password updated successfully.';
+          e.target.reset();
+        } else throw new Error();
+      } catch {
+        feedback.className = 'feedback-error';
+        feedback.textContent = 'Invalid email or password.';
+      }
+
+      setTimeout(() => (feedback.textContent = ''), 1500);
+    });
+}
+
+function setupDeleteUser(userId) {
+  document.getElementById('delete-user').addEventListener('click', async () => {
+    const confirmed = confirm(
+      'Are you sure you want to delete your account? This action cannot be undone.'
+    );
+    if (!confirmed) return;
+
+    try {
+      const result = await deleteUser(userId);
+      if (result) {
+        alert('Account deleted successfully.');
+        sessionStorage.removeItem('user');
+        window.location.href = '../';
+      } else {
+        throw new Error();
+      }
+    } catch {
       alert('Failed to delete account. Please try again.');
     }
+  });
+}
+
+(async function loadPageData() {
+  try {
+    const userData = await getUserData();
+    if (!userData) return redirectToLogin();
+
+    setupGreeting(userData);
+    setupTabs(userData.role);
+    setupProfileInfo(userData);
+
+    if (userData.role === 'campaigner') {
+      await renderCampaigns(userData.id);
+    } else if (userData.role === 'backer') {
+      await renderPledges(userData.id);
+    }
+
+    setupEmailForm(userData.id);
+    setupPasswordForm(userData.id);
+    setupDeleteUser(userData.id);
+  } catch (error) {
+    console.error('Failed to load page data:', error);
+    alert('An error occurred while loading your data. Please try again.');
+  }
+})();
+
+// Dialog for updating campaign
+const UpdateDialog = document.getElementById('update-dialog');
+const rewardsContainer = document.getElementById('rewards-container');
+const addRewardBtn = document.getElementById('add-reward-btn');
+
+document
+  .getElementById('campaigns-tab')
+  .addEventListener('click', async (e) => {
+    if (e.target.classList.contains('campaign__edit')) {
+      const campaignId = e.target.dataset.id;
+      const campaign = await getCampaignById(campaignId);
+      if (!campaign) return;
+
+      UpdateDialog.showModal();
+
+      document
+        .getElementById('update-form')
+        .setAttribute('data-id', campaignId);
+      document.getElementById('update-campaign-id').value = campaign.id || '';
+      document.getElementById('update-title').value = campaign.title || '';
+      document.getElementById('update-description').value =
+        campaign.description || '';
+      document.getElementById('update-goal').value = campaign.goal || 0;
+      document.getElementById('update-raised').value = campaign.raised || 0;
+      document.getElementById('update-deadline').value = campaign.deadline
+        ? new Date(campaign.deadline).toISOString().split('T')[0]
+        : '';
+      document.getElementById('update-category').value =
+        campaign.category || 'health';
+
+      // Set image preview
+      const imagePreview = document.getElementById('update-image-preview');
+      if (campaign.image) {
+        imagePreview.src = campaign.image;
+        imagePreview.style.display = 'block';
+      } else {
+        imagePreview.src = '';
+        imagePreview.style.display = 'none';
+      }
+
+      // Populate rewards
+      rewardsContainer.innerHTML = '';
+      if (Array.isArray(campaign.rewards)) {
+        campaign.rewards.forEach((reward) => {
+          const rewardElement = createRewardInput(reward);
+          rewardsContainer.appendChild(rewardElement);
+        });
+      }
+    }
+  });
+
+document.querySelector('.dialog__close').addEventListener('click', () => {
+  UpdateDialog.close();
+});
+
+function createRewardInput(reward = { title: '', amount: 0 }) {
+  const wrapper = document.createElement('div');
+  wrapper.className = 'form-group__reward';
+
+  // Title input
+  const titleInput = document.createElement('input');
+  titleInput.type = 'text';
+  titleInput.name = 'reward-title';
+  titleInput.placeholder = 'Reward Title';
+  titleInput.value = reward.title || '';
+  titleInput.className = 'form-group__input reward-input__title';
+
+  // Amount input
+  const amountInput = document.createElement('input');
+  amountInput.type = 'number';
+  amountInput.name = 'reward-amount';
+  amountInput.placeholder = 'Amount ($)';
+  amountInput.value = reward.amount || 0;
+  amountInput.className = 'form-group__input reward-input__amount';
+
+  // Optional: delete button
+  const deleteBtn = document.createElement('button');
+  deleteBtn.type = 'button';
+  deleteBtn.className = 'form-group__remove-reward';
+  deleteBtn.textContent = 'Remove';
+  deleteBtn.addEventListener('click', () => wrapper.remove());
+
+  // Append inputs
+  wrapper.appendChild(titleInput);
+  wrapper.appendChild(amountInput);
+  wrapper.appendChild(deleteBtn);
+
+  return wrapper;
+}
+
+document
+  .getElementById('update-image')
+  .addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    const imagePreview = document.getElementById('update-image-preview');
+
+    if (file) {
+      try {
+        const base64 = await imageToBase64(file);
+        imagePreview.src = base64;
+        imagePreview.style.display = 'block';
+      } catch (err) {
+        console.error('Error converting image:', err);
+      }
+    } else {
+      imagePreview.src = '';
+      imagePreview.style.display = 'none';
+    }
+  });
+
+addRewardBtn.addEventListener('click', () => {
+  const newReward = createRewardInput();
+  rewardsContainer.appendChild(newReward);
+});
+
+document.getElementById('update-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  const formData = new FormData(e.target);
+  const campaignId = e.target.dataset.id;
+  const title = formData.get('title');
+  const description = formData.get('description');
+  const goal = parseFloat(formData.get('goal'));
+  const raised = parseFloat(formData.get('raised'));
+  const deadline = formData.get('deadline');
+  const category = formData.get('category');
+  const image = formData.get('image');
+  const rewards = Array.from(rewardsContainer.children).map((reward) => {
+    const title = reward.querySelector('.reward-input__title').value;
+    const amount = parseFloat(
+      reward.querySelector('.reward-input__amount').value
+    );
+    return { title, amount };
+  });
+  const imageBase64 = await imageToBase64(image);
+
+  const updatedCampaign = {
+    title,
+    description,
+    goal,
+    raised,
+    deadline,
+    category,
+    image: imageBase64,
+    rewards,
+  };
+
+  try {
+    let res = await updateCampaign(campaignId, updatedCampaign);
+    console.log('Campaign updated:', res);
+    UpdateDialog.close();
+    window.location.reload();
+  } catch (error) {
+    console.error('Error updating campaign:', error);
   }
 });
