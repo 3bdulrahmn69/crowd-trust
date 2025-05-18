@@ -10,14 +10,13 @@
 
 <body>
     <div class="crowd-trust-container">
-    <main class="donation-container">
+    <main  id="donation-card" class="donation-container">
         <div class="donation-header">
             <h1>Support Our Cause</h1>
             <p>Your contribution helps us make a difference.</p>
         </div>
         <div id="relatedCampaigns" class="related-campaigns">
-            <h2>Related Campaign</h2>
-            <p id="moneyRemaining"></p>
+           
             <p id="daysRemaining"></p>
             </div>
 
@@ -27,11 +26,13 @@
                 <div class="form-group">
                     <label for="donationAmount">Support Amount ($)</label>
                     <input type="number" id="donationAmount" min="1" step="1" placeholder="Enter amount" required>
+                    <div class="hidden" id="exceeding-msg"> you exceed goal of campaign</div>
                     <div class="quick-select">
-                        <button type="button" class="amount-option">$25</button>
-                        <button type="button" class="amount-option">$50</button>
-                        <button type="button" class="amount-option">$100</button>
-                        <button type="button" class="amount-option">$250</button>
+
+                        <button type="button" class="amount-option" data-amount="25" >$25</button>
+                        <button type="button" class="amount-option" data-amount="50">$50</button>
+                        <button type="button" class="amount-option" data-amount="100" >$100</button>
+                        <button type="button" class="amount-option" data-amount="250" >$250</button>
                     </div>
                 </div>
 
