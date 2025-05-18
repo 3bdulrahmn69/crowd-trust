@@ -26,7 +26,7 @@
                 <div class="form-group">
                     <label for="donationAmount">Support Amount ($)</label>
                     <input type="number" id="donationAmount" min="1" step="1" placeholder="Enter amount" required>
-                    <div class="hidden" id="exceeding-msg"> you exceed goal of campaign</div>
+                    <div class="hidden error-message" id="exceeding-msg" > you exceed goal of campaign</div>
                     <div class="quick-select">
 
                         <button type="button" class="amount-option" data-amount="25" >$25</button>
@@ -46,7 +46,7 @@
                     </select>
                 </div>
 
-                <div class="form-group" id="creditCardFields" style="display: none;">
+                <!-- <div class="form-group" id="creditCardFields" style="display: none;">
                     <label for="cardNumber">Card Number</label>
                     <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456">
 
@@ -60,13 +60,16 @@
                             <input type="text" id="cvv" placeholder="123">
                         </div>
                     </div>
-                </div>
+                </div> -->
 
-                <div class="form-group">
-                    <label for="donorMessage">Message (Optional)</label>
-                    <textarea id="donorMessage" placeholder="Add a message of support..."></textarea>
+               <div class="form-group">
+                    <label for="Reward">choose Reward</label>
+                    <select id="selectReward" required>
+                        <option value="" disabled selected>Select Your Reward</option>
+                        <!-- <option class="rewardOption"></option> -->
+                      
+                    </select>
                 </div>
-
 
 
                 <button type="submit" class="submit-donation">Complete Donation</button>
@@ -76,7 +79,7 @@
     <div id="thankYouMessage" class="donation-header hidden">
         <h1>Thank you for your donation!</h1>
         <p>Your support helps us make a difference.</p>
-        <p>If you have any questions, feel free to <a href="#contact" class="nav__link">contact us</a>.</p>
+        <p>If you have any questions, feel free to <a href="/#contact" class="nav__link">contact us</a>.</p>
     </div>
     </div>
     

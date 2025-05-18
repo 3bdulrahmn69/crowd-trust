@@ -1,13 +1,12 @@
-import { getCampaignById } from "../lib/api.js";
+import { getCampaignById , updateCampaign ,createPledge} from "../lib/api.js";
+import {getUserData ,uuidv4} from "../lib/utilities.js";
+import { Pledge } from '../lib/classes.js';
 
 const donationForm = document.getElementById("donationForm");
 const donationAmount = document.getElementById("donationAmount");
 const amountOptions = document.querySelectorAll(".amount-option");
-const paymentMethod = document.getElementById("paymentMethod");
-const creditCardFields = document.getElementById("creditCardFields");
-const cardNumber = document.getElementById("cardNumber");
-const expiryDate = document.getElementById("expiryDate");
-const cvv = document.getElementById("cvv");
+const rewardcontainer= document.getElementById("selectReward");
+
 
 const campaignId = new URLSearchParams(window.location.search).get("campaign");
 const relatedCampaigns = document.getElementById("relatedCampaigns");
@@ -17,10 +16,12 @@ const daysRemaining = document.getElementById("daysRemaining");
 
 (async function init() {
   const data = await getData(campaignId);
+  console.log(data);
 
   // Render campaign details
   campaignTitle.innerText = data.title;
   relatedCampaigns.appendChild(campaignTitle);
+  campaignTitle.classList.add("donation-header");
 
   campaignDescription.innerText = data.description;
   relatedCampaigns.appendChild(campaignDescription);
@@ -39,22 +40,46 @@ const daysRemaining = document.getElementById("daysRemaining");
     } else {
       warningMsg.classList.add("hidden");
     }
+
   });
+
+   console.log(data.rewards);
+    for (let i = 0; i < data.rewards.length; i++){
+        console.log(data.rewards[i]);
+        const rewardOption = document.createElement("option");
+     rewardOption.innerText = ` ${data.rewards[i].amount} - ${data.rewards[i].title}`;
+     rewardOption.value = data.rewards[i].id;
+     rewardcontainer.appendChild(rewardOption);
+    }
+    
 
   // Add click listeners to preset amount buttons
   amountOptions.forEach((btn) => {
     btn.addEventListener("click", function () {
       donationAmount.value = btn.dataset.amount;
+      btn.classList.add("active");
+    });
+    btn.addEventListener("blur", function () {
+      btn.classList.remove("active");
     });
   });
 })();
 
 // Submit form handler
-donationForm.addEventListener("submit", function (e) {
+donationForm.addEventListener("submit",async function (e) {
   e.preventDefault();
-  donationForm.style.display = "none";
+  document.getElementById(`donation-card`).style.display = "none";
   document.getElementById("thankYouMessage").classList.remove("hidden");
+  const data = await getData(campaignId);
+  const supportUpdate =data.raised += parseInt(donationAmount.value);
+    await updateCampaign(campaignId, {raised: supportUpdate});
+    const selectReward = document.getElementById("selectReward");
+    
+
+    const pledge = new Pledge(uuidv4(), campaignId,getUserData().id ,donationAmount.value, selectReward.value);
+    await createPledge(pledge);
 });
+
 
 // Fetch campaign data
 async function getData(campaignId) {
@@ -69,3 +94,5 @@ function calculateDaysRemaining(deadline) {
   const diffTime = end - now;
   return Math.max(Math.ceil(diffTime / (1000 * 60 * 60 * 24)), 0);
 }
+ 
+ 
