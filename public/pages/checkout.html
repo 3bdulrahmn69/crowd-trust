@@ -10,74 +10,29 @@
 
 <body>
     <div class="crowd-trust-container">
-        <header class="header">
-            <div class="container header__container">
-                <div class="header__logo">
-                    <a href="/" class="logo__link" aria-label="CrowdTrust Home">Crowd Trust</a>
-                </div>
-
-                <button class="header__toggle-btn" aria-label="Toggle navigation" aria-expanded="false"
-                    aria-controls="nav-menu">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </button>
-
-                <nav class="header__nav" id="nav-menu">
-                    <ul class="nav__links">
-                        <li class="nav__item"><a href="#home" class="nav__link">Home</a></li>
-                        <li class="nav__item"><a href="#about" class="nav__link">About</a></li>
-                        <li class="nav__item"><a href="#campaigns" class="nav__link">Campaigns</a></li>
-                        <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
-                        <li class="nav__item"><a href="#faq" class="nav__link">FAQ</a></li>
-                    </ul>
-
-                    <div id="auth_container" class="nav__auth">
-                        <!-- Show only when user is not logged in -->
-                        <div id="auth_buttons" class="auth__buttons">
-                            <a href="./pages/auth/login.html" class="btn btn--primary" id="login_index_btn">Login</a>
-                            <a href="./pages/auth/register.html" class="btn btn--secondary"
-                                id="register_index_btn">Register</a>
-                        </div>
-
-                        <!-- Show only when user is logged in -->
-                        <div id="user_container" class="auth__profile hidden">
-                            <button id="user_button" class="btn btn--text">👋 Username</button>
-                            <ul id="profile_list" class="profile_list hidden">
-                                <li><a href="./pages/user/profile.html">View Profile</a></li>
-                                <li><a href="./pages/campaigns.html">Campaigns</a></li>
-                                <li><button class="btn btn--danger btn--full" id="logout_btn">Log Out</>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-            </div>
-            </nav>
-    </div>
-    </header>
-
-    <main class="donation-container">
+    <main  id="donation-card" class="donation-container">
         <div class="donation-header">
             <h1>Support Our Cause</h1>
             <p>Your contribution helps us make a difference.</p>
         </div>
         <div id="relatedCampaigns" class="related-campaigns">
-            <h2>Related Campaign</h2>
-            <p id="moneyRemaining"></p>
+           
             <p id="daysRemaining"></p>
             </div>
 
         <div class="donation-form">
-            <h3> Donation</h3>
+            <h3> Support </h3>
             <form id="donationForm">
                 <div class="form-group">
-                    <label for="donationAmount">Donation Amount ($)</label>
+                    <label for="donationAmount">Support Amount ($)</label>
                     <input type="number" id="donationAmount" min="1" step="1" placeholder="Enter amount" required>
+                    <div class="hidden error-message" id="exceeding-msg" > you exceed goal of campaign</div>
                     <div class="quick-select">
-                        <button type="button" class="amount-option">$25</button>
-                        <button type="button" class="amount-option">$50</button>
-                        <button type="button" class="amount-option">$100</button>
-                        <button type="button" class="amount-option">$250</button>
+
+                        <button type="button" class="amount-option" data-amount="25" >$25</button>
+                        <button type="button" class="amount-option" data-amount="50">$50</button>
+                        <button type="button" class="amount-option" data-amount="100" >$100</button>
+                        <button type="button" class="amount-option" data-amount="250" >$250</button>
                     </div>
                 </div>
 
@@ -91,7 +46,7 @@
                     </select>
                 </div>
 
-                <div class="form-group" id="creditCardFields" style="display: none;">
+                <!-- <div class="form-group" id="creditCardFields" style="display: none;">
                     <label for="cardNumber">Card Number</label>
                     <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456">
 
@@ -105,13 +60,16 @@
                             <input type="text" id="cvv" placeholder="123">
                         </div>
                     </div>
-                </div>
+                </div> -->
 
-                <div class="form-group">
-                    <label for="donorMessage">Message (Optional)</label>
-                    <textarea id="donorMessage" placeholder="Add a message of support..."></textarea>
+               <div class="form-group">
+                    <label for="Reward">choose Reward</label>
+                    <select id="selectReward" required>
+                        <option value="" disabled selected>Select Your Reward</option>
+                        <!-- <option class="rewardOption"></option> -->
+                      
+                    </select>
                 </div>
-
 
 
                 <button type="submit" class="submit-donation">Complete Donation</button>
@@ -121,49 +79,12 @@
     <div id="thankYouMessage" class="donation-header hidden">
         <h1>Thank you for your donation!</h1>
         <p>Your support helps us make a difference.</p>
-        <p>If you have any questions, feel free to <a href="#contact" class="nav__link">contact us</a>.</p>
+        <p>If you have any questions, feel free to <a href="/#contact" class="nav__link">contact us</a>.</p>
     </div>
-    <footer class="footer">
-        <div class="container footer__container">
-            <div class="footer__brand">
-                <a href="/" class="logo__link" aria-label="Crowd Trust Home">Crowd Trust</a>
-                <p class="footer__description">
-                    Empowering communities through transparency and trust. Join us to make an impact, one campaign at a
-                    time.
-                </p>
-            </div>
-
-            <!-- Navigation Links -->
-            <nav class="footer__nav" aria-label="Footer Navigation">
-                <ul class="footer__links">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#campaigns">Campaigns</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    <li><a href="#faq">FAQ</a></li>
-                </ul>
-            </nav>
-
-            <!-- Contact / Social -->
-            <div class="footer__info">
-                <p class="footer__email">Email: <a href="mailto:info@crowdtrust.org">info@crowdtrust.org</a></p>
-                <div class="footer__social">
-                    <a href="#" aria-label="Facebook" class="footer__social-link">Facebook</a>
-                    <a href="#" aria-label="Twitter" class="footer__social-link">Twitter</a>
-                    <a href="#" aria-label="LinkedIn" class="footer__social-link">LinkedIn</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Copyright -->
-        <div class="footer__bottom">
-            <div class="container">
-                <p class="footer__copy">&copy; 2023 Crowd Trust. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
     </div>
+    
+
+
 
     <script src="../js/checkout.js" type="module"></script>
 </body>

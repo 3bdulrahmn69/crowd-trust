@@ -45,3 +45,18 @@ export class Campaign {
     this.rewards = rewards;
   }
 }
+ 
+export class Pledge {
+ id;
+campaignId;
+userId;
+amount;
+rewardId;
+constructor(id, campaignId, userId, amount, rewardId) {
+  this.id = id;
+  this.campaignId = campaignId;
+  this.userId = userId;
+  this.amount = amount;
+  this.rewardId = rewardId;
+}
+}
