@@ -96,7 +96,9 @@ async function createCampaignCard(campaign) {
         <dd>${remainingDays(campaign.deadline)}</dd>
       </div>
     </dl>
-    <button class="btn btn-primary">Support Now</button>
+    <a href="/pages/checkout.html?campaign=${
+      campaign.id
+    }" class="btn btn-primary">Support Now</a>
   </div>
   `;
 
