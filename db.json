@@ -263,37 +263,5 @@
       "amount": "25",
       "rewardId": "1"
     }
-  ],
-  "updates": [
-    {
-      "id": "1",
-      "campaignId": 1,
-      "message": "Thanks for 100 backers!",
-      "timestamp": "2025-05-10T10:00:00Z"
-    },
-    {
-      "id": "2",
-      "campaignId": 1,
-      "message": "New reward tier added!",
-      "timestamp": "2025-05-11T12:00:00Z"
-    },
-    {
-      "id": "3",
-      "campaignId": 3,
-      "message": "Almost fully funded! Thank you!",
-      "timestamp": "2025-05-12T14:00:00Z"
-    },
-    {
-      "id": "4",
-      "campaignId": 4,
-      "message": "We reached our goal!",
-      "timestamp": "2025-05-11T09:30:00Z"
-    },
-    {
-      "id": "5",
-      "campaignId": 5,
-      "message": "App prototype demo released.",
-      "timestamp": "2025-05-13T08:00:00Z"
-    }
   ]
 }
