@@ -50,6 +50,12 @@ img {
     justify-content: center;
   }
 }
+@media (min-width: 1024px) {
+  .dashboard__logout {
+    position: relative;
+    top: 350px;
+  }
+}
 .header {
   background-color: #ffffff;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -1185,7 +1191,7 @@ img {
   max-width: 1200px;
 }
 
-.btn, .dashboard-page .dashboard__logout {
+.btn, .dashboard-page .homepage__btn, .dashboard-page .dashboard__logout {
   border: none;
   outline: none;
   display: inline-flex;
@@ -1201,7 +1207,7 @@ img {
   position: relative;
   overflow: hidden;
 }
-.btn:disabled, .dashboard-page .dashboard__logout:disabled {
+.btn:disabled, .dashboard-page .homepage__btn:disabled, .dashboard-page .dashboard__logout:disabled {
   opacity: 0.7;
   cursor: not-allowed;
   pointer-events: none;
@@ -1694,7 +1700,7 @@ img {
   margin-top: 2rem;
   grid-column: 1/-1;
 }
-.dialog__actions .btn, .dialog__actions .dashboard-page .dashboard__logout, .dashboard-page .dialog__actions .dashboard__logout {
+.dialog__actions .btn, .dialog__actions .dashboard-page .homepage__btn, .dashboard-page .dialog__actions .homepage__btn, .dialog__actions .dashboard-page .dashboard__logout, .dashboard-page .dialog__actions .dashboard__logout {
   padding: 0.75rem 1.5rem;
   border-radius: 0.5rem;
   font-weight: 500;
@@ -1805,13 +1811,27 @@ img {
 .dashboard-page .dashboard__logout {
   background-color: #ef4444;
   color: #ffffff;
+  width: 100%;
+  margin: 3%;
+  justify-content: center !important;
+  align-items: flex-end !important;
+  align-self: flex-end !important;
+}
+.dashboard-page .dashboard__logout:hover {
+  background-color: #ed2d2d;
+  transform: scale(1.05);
+}
+.dashboard-page .homepage__btn {
+  background-color: #3b82f6;
+  color: #ffffff;
   margin-top: auto;
   justify-content: center !important;
   align-items: center !important;
   width: 100%;
+  margin: 3%;
 }
-.dashboard-page .dashboard__logout:hover {
-  background-color: #ed2d2d;
+.dashboard-page .homepage__btn:hover {
+  background-color: #2372f5;
   transform: scale(1.05);
 }
 .dashboard-page .dashboard #users {
@@ -2137,7 +2157,7 @@ img {
   margin-top: 12px;
   border-top: 1px solid #f3f4f6;
 }
-.dashboard-page .dashboard #campaigns .campaign__actions .btn, .dashboard-page .dashboard #campaigns .campaign__actions .dashboard__logout {
+.dashboard-page .dashboard #campaigns .campaign__actions .btn, .dashboard-page .dashboard #campaigns .campaign__actions .dashboard__logout, .dashboard-page .dashboard #campaigns .campaign__actions .homepage__btn {
   padding: 6px 12px;
   font-size: 0.8125rem;
   border-radius: 6px;
@@ -2170,7 +2190,7 @@ img {
   .dashboard-page .dashboard #campaigns .campaign__actions {
     flex-wrap: wrap;
   }
-  .dashboard-page .dashboard #campaigns .campaign__actions .btn, .dashboard-page .dashboard #campaigns .campaign__actions .dashboard__logout {
+  .dashboard-page .dashboard #campaigns .campaign__actions .btn, .dashboard-page .dashboard #campaigns .campaign__actions .dashboard__logout, .dashboard-page .dashboard #campaigns .campaign__actions .homepage__btn {
     flex: 1;
     text-align: center;
   }
