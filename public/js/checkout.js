@@ -78,19 +78,23 @@ donationForm.addEventListener('submit', async (e) => {
   const updatedRaised = data.raised + donationValue;
   await updateCampaign(campaignId, { raised: updatedRaised });
 
+  const { id } = await getUserData();
+
   // Create pledge
   const pledge = new Pledge(
     uuidv4(),
     campaignId,
-    getUserData().id,
+    id,
     donationValue,
     selectedRewardId
   );
-  await createPledge(pledge);
 
-  // Feedback
-  document.getElementById('donation-card').style.display = 'none';
-  document.getElementById('thankYouMessage').classList.remove('hidden');
+  let res = await createPledge(pledge);
+
+  if (res) {
+    document.getElementById('donation-card').style.display = 'none';
+    document.getElementById('thankYouMessage').classList.remove('hidden');
+  }
 });
 
 // Utility: Validate input against goal

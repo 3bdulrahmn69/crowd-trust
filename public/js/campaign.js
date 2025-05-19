@@ -69,9 +69,8 @@ function renderCampaigns(campaigns) {
   campaigns.forEach(async (campaign) => {
     const card = await createCampaignCard(campaign);
     container.appendChild(card);
+    updateUIForLoggedInUser(sessionStorage.getItem('user'));
   });
-
-  updateUIForLoggedInUser(sessionStorage.getItem('user'));
 }
 
 getApprovedCampaigns().then((campaigns) => {

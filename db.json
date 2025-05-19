@@ -69,10 +69,12 @@
       "category": "health",
       "rewards": [
         {
+          "id": "1",
           "title": "Starter Pack",
           "amount": 20
         },
         {
+          "id": "2",
           "title": "Family Pack",
           "amount": 50
         }
@@ -256,24 +258,6 @@
       "userId": 5,
       "amount": 75,
       "rewardId": 1
-    },
-    {
-      "id": "2b33454e-adba-4b32-a3c6-4e49c8eda6e2",
-      "campaignId": "3",
-      "amount": "250",
-      "rewardId": "paypal"
-    },
-    {
-      "id": "c93278cb-3862-4111-9ad8-e00199676bbb",
-      "campaignId": "3",
-      "amount": "250",
-      "rewardId": "paypal"
-    },
-    {
-      "id": "37fbadb3-adaa-430c-b74b-09997e91db3d",
-      "campaignId": "3",
-      "amount": "250",
-      "rewardId": "credit"
     },
     {
       "id": "1ec56a85-8d7f-4b00-8758-c82031920443",
