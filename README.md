@@ -95,6 +95,60 @@ A crowd trust campaign in crowdfunding refers to building trust with potential b
 6. update user
 7. delete user
 ***********************************
+### checkout page `checkout.html`
+features
+1. choose donation amout
+2. choose payment method
+3. choose reward
+4. confirm donation
+5. thank you message
+
+#### technical implementation
+1. get campaign details
+2. get user details
+3. calculate remaning amount
+4. calculate total raised
+5. update campaign info
+6. add pledge to database
+ #### end points
+ 1. get campaign
+ 2. get user
+ 3. patch campaign
+ 4. put pledge
+*****************************
+### campaign page (`campaign.html`)
+#### features
+1. campaign details
+2. create campaign dialog
+3. edit campaign dialog
+4. add campaign button
+5. role based display for feature
+ #### technical implementation
+ 1. get campaign details
+ 2. get user details
+ 
+ #### end points
+ 1. get campaign
+ 2. get user
+ 3. post campaign
+
+********************
+### profile page (`profile.html`)
+#### features
+1. user details
+2. change password dialog
+3. delete account button
+4. role based display for feature
+ #### technical implementation
+ 1. get user details
+ 2. update user details
+ 3. delete user
+ #### end points
+ 1. get user
+ 2. patch user
+ 3. delete user
+*********************
+
 
 
 
