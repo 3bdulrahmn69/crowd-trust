@@ -13,9 +13,11 @@ toggleBtn.addEventListener('click', () => {
 
 getApprovedCampaigns().then((campaigns) => {
   const campaignList = document.querySelector('.campaigns__list');
-  campaigns.slice(0,3 ).forEach(async (campaign) => {
+  campaigns.slice(0, 3).forEach(async (campaign) => {
     const card = await createCampaignCard(campaign);
     campaignList.appendChild(card);
+    // Run on load
+    updateUIForLoggedInUser(sessionStorage.getItem('user'));
   });
 });
 
@@ -25,7 +27,6 @@ function updateUIForLoggedInUser(userJSON) {
   const userContainer = document.getElementById('user_container');
   const userButton = document.getElementById('user_button');
   const profileList = document.getElementById('profile_list');
-  const logoutBtn = document.getElementById('logout_btn');
 
   if (!userJSON) {
     // User not logged in – ensure login/register are visible
@@ -55,11 +56,13 @@ function updateUIForLoggedInUser(userJSON) {
     profileList.classList.add('hidden');
   });
 
-  // Logout functionality
-  logoutBtn?.addEventListener('click', () => {
-    logout();
-  });
-}
+  if (user.role === 'backer') {
+    document.querySelectorAll('.campaign-footer').forEach((footer) => {
+      footer.classList.remove('hidden');
+    });
+  }
 
-// Run on load
-updateUIForLoggedInUser(sessionStorage.getItem('user'));
+  document.getElementById('logout_btn').addEventListener('click', () => {
+    logout();
+  }); // Logout functionality
+}

@@ -20,20 +20,17 @@ const exceedingMsg = document.getElementById('exceeding-msg');
 const campaignId = new URLSearchParams(window.location.search).get('campaign');
 
 async function verify() {
-  const userJSON = sessionStorage.getItem('user');
-
-  if (!userJSON) {
-    window.location.href = '/index.html';
-    return;
-  }
-
-  const user = JSON.parse(userJSON);
-  if (user.role !== 'backer') {
-    window.location.href = '/index.html';
+  try {
+    const { role } = await getUserData();
+    if (role !== 'backer') {
+      window.location.href = '/';
+    }
+  } catch (error) {
+    console.error('Error verifying user:', error);
+    window.location.href = '/';
   }
 }
 verify();
-
 
 (async function init() {
   const data = await getCampaignById(campaignId);

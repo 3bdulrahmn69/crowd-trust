@@ -9,16 +9,20 @@ import {
   updateUser,
 } from '../lib/api.js';
 import { getUserData, imageToBase64 } from '../lib/utilities.js';
- async function verify() {
-  const userJSON = sessionStorage.getItem('user');
 
-  if (!userJSON) {
-    window.location.href = '/index.html';
-    return;
+async function verify() {
+  try {
+    const user = await getUserData();
+    if (!user) {
+      window.location.href = '/';
+    }
+  } catch (error) {
+    console.error('Error verifying user:', error);
+    window.location.href = '/';
   }
-
 }
 verify();
+
 function redirectToLogin() {
   window.location.href = '../auth/login.html';
 }

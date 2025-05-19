@@ -8,6 +8,7 @@ import {
   updateCampaign,
   updateUser,
 } from '../lib/api.js';
+import { getUserData } from '../lib/utilities.js';
 
 // Handle Dashboard Navigation
 const buttons = document.querySelectorAll('.dashboard__btn');
@@ -17,16 +18,15 @@ sections[0].classList.add('active');
 buttons[0].classList.add('active');
 
 async function verify() {
-  const userJSON = sessionStorage.getItem('user');
-
-  if (!userJSON) {
-    window.location.href = '/index.html';
-    return;
-  }
-
-  const user = JSON.parse(userJSON);
-  if (user.role !== 'admin') {
-    window.location.href = '/index.html';
+  try {
+    const { role } = await getUserData();
+    console.log(role);
+    if (role !== 'admin') {
+      window.location.href = '/';
+    }
+  } catch (error) {
+    console.error('Error verifying user:', error);
+    window.location.href = '/';
   }
 }
 verify();
@@ -386,6 +386,4 @@ logoutBtn.addEventListener(`click`, function () {
   sessionStorage.removeItem(`user`);
   window.location.href = `/index.html`;
 });
-export{
-  loadCampaigns,
-}
+export { loadCampaigns };
