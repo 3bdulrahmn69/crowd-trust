@@ -82,10 +82,15 @@
     @extend .btn;
     background-color: $color-danger;
     color: $white;
-    margin-top: auto;
-    justify-content: center !important;
-    align-items: center !important;
+    // margin-top: auto;
     width: 100%;
+     margin: 3%;
+     justify-content: center !important;
+    align-items: flex-end !important;
+    align-self: flex-end !important;
+  
+   
+  
 
     &:hover {
       background-color: darken($color-danger, 5%);
@@ -93,6 +98,21 @@
     }
   }
 
+  .homepage__btn{
+ @extend .btn;
+    background-color:$color-primary;
+    color: $white;
+    margin-top: auto;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100%;
+    margin: 3%;
+
+    &:hover {
+      background-color: darken($color-primary, 5%);
+      transform: scale(1.05);
+    }
+  }
   @import '../layout/dashboard-users';
   @import '../layout/dashboard-campaigns';
   @import '../layout/dashboard-pledges';
