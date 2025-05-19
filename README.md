@@ -62,7 +62,9 @@ A crowd trust campaign in crowdfunding refers to building trust with potential b
 #### Specifed user experiance
 1. every user have welcome message
 2. list to easy rich his profile and campaigns
-
+#### endpoints
+1. get  campaigns
+2. get  users
 **************************
 ### admin dashboard (`admin-dashboard.html`)
 #### features 
@@ -74,8 +76,27 @@ A crowd trust campaign in crowdfunding refers to building trust with potential b
 
 ### Technical Implementation
 
- #### campaign dispaly to approve or delete inappropiate campaign
-  
+ #### campaign dispaly 
+ 1. approve or delete inappropiate campaign
+ 2. filter between campaign
+ #### pledges display
+ 1. get all pledges
+ 2. filter between pledges
+ #### diplay all users
+ 1. get all users by data and role
+ 2. filter between users
+ 3. block or unblock users
+#### end points
+1. get all campaigns
+2. get all pledges
+3. get all users
+4. update campaign
+5. delete campaign
+6. update user
+7. delete user
+***********************************
+
+
 
 
 

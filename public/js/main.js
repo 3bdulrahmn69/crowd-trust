@@ -13,7 +13,7 @@ toggleBtn.addEventListener('click', () => {
 
 getApprovedCampaigns().then((campaigns) => {
   const campaignList = document.querySelector('.campaigns__list');
-  campaigns.slice(0, 3).forEach(async (campaign) => {
+  campaigns.slice(0,3 ).forEach(async (campaign) => {
     const card = await createCampaignCard(campaign);
     campaignList.appendChild(card);
   });
