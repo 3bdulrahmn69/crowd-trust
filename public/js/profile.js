@@ -9,7 +9,16 @@ import {
   updateUser,
 } from '../lib/api.js';
 import { getUserData, imageToBase64 } from '../lib/utilities.js';
+ async function verify() {
+  const userJSON = sessionStorage.getItem('user');
 
+  if (!userJSON) {
+    window.location.href = '/index.html';
+    return;
+  }
+
+}
+verify();
 function redirectToLogin() {
   window.location.href = '../auth/login.html';
 }

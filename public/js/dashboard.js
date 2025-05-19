@@ -16,6 +16,21 @@ const sections = document.querySelectorAll('.dashboard__section');
 sections[0].classList.add('active');
 buttons[0].classList.add('active');
 
+async function verify() {
+  const userJSON = sessionStorage.getItem('user');
+
+  if (!userJSON) {
+    window.location.href = '/index.html';
+    return;
+  }
+
+  const user = JSON.parse(userJSON);
+  if (user.role !== 'admin') {
+    window.location.href = '/index.html';
+  }
+}
+verify();
+
 buttons.forEach((button) => {
   button.addEventListener('click', () => {
     const targetSection = button.dataset.section;
@@ -371,3 +386,6 @@ logoutBtn.addEventListener(`click`, function () {
   sessionStorage.removeItem(`user`);
   window.location.href = `/index.html`;
 });
+export{
+  loadCampaigns,
+}

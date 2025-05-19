@@ -19,6 +19,22 @@ const exceedingMsg = document.getElementById('exceeding-msg');
 
 const campaignId = new URLSearchParams(window.location.search).get('campaign');
 
+async function verify() {
+  const userJSON = sessionStorage.getItem('user');
+
+  if (!userJSON) {
+    window.location.href = '/index.html';
+    return;
+  }
+
+  const user = JSON.parse(userJSON);
+  if (user.role !== 'backer') {
+    window.location.href = '/index.html';
+  }
+}
+verify();
+
+
 (async function init() {
   const data = await getCampaignById(campaignId);
   if (!data) return;

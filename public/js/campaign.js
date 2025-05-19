@@ -7,7 +7,24 @@ import {
 } from '../lib/utilities.js';
 import { Campaign } from '../lib/classes.js';
 import { uuidv4 } from '../lib/utilities.js';
+// import {loadCampaigns} from '../js/dashboard.js';
 
+async function verify() {
+  const userJSON = sessionStorage.getItem('user');
+  const user = JSON.parse(userJSON);
+  if (user.role === 'campaigner') {
+    window.location.href = '/public/pages/campaigner.html';
+  }
+  if (user.role === 'backer') {
+    window.location.href = '/public/pages/campaigner.html';
+  }
+  if (user.role === 'admin') {
+    window.location.href = '/pages/dashboard.html';
+    // loadCampaigns();
+  }
+ 
+}
+verify();
 function updateUIForLoggedInUser(userJSON) {
   const authButtons = document.getElementById('auth_buttons');
   const userContainer = document.getElementById('user_container');
