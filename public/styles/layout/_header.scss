@@ -4,7 +4,7 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  padding: 0.5rem 0;
+  padding: 1rem 0;
 
   &__container {
     @include flex-box(row, space-between, center, 0, nowrap);

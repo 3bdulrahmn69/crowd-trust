@@ -1,0 +1,211 @@
+.campaign-card {
+  // Variables
+  $primary-color: #3b82f6;
+  $secondary-color: #64748b;
+  $success-color: #10b981;
+  $background-color: #f8fafc;
+  $text-color: #1e293b;
+
+  background: white;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+
+    .campaign-media img {
+      transform: scale(1.05);
+    }
+  }
+
+  // Media Section
+  .campaign-media {
+    height: 250px;
+    overflow: hidden;
+    position: relative;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+  }
+
+  // Category Badge
+  .campaign-category-badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+
+    i {
+      color: $primary-color;
+    }
+
+    .category-label {
+      font-weight: 500;
+      color: $text-color;
+    }
+  }
+
+  // Content Section
+  .campaign-content {
+    padding: 1.5rem;
+  }
+
+  .campaign-header {
+    margin-bottom: 1rem;
+
+    .campaign-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: $text-color;
+      margin: 0 0 0.5rem;
+      line-height: 1.3;
+    }
+
+    .campaign-creator {
+      color: $secondary-color;
+      font-size: 0.875rem;
+
+      .creator-name {
+        font-weight: 500;
+        color: $primary-color;
+      }
+    }
+  }
+
+  // Description
+  .campaign-description {
+    color: $secondary-color;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  // Progress Section
+  .campaign-progress {
+    margin: 1.5rem 0;
+
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: $background-color;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        $primary-color,
+        lighten($primary-color, 10%)
+      );
+      border-radius: 4px;
+      transition: width 0.5s ease;
+    }
+  }
+
+  // Meta Information
+  .campaign-meta {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin: 1.5rem 0;
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem;
+      background: $background-color;
+      border-radius: 0.5rem;
+
+      dt {
+        color: $primary-color;
+        display: flex;
+        align-items: center;
+      }
+
+      dd {
+        margin: 0;
+        font-weight: 500;
+        color: $text-color;
+      }
+    }
+  }
+
+  // Footer
+  .campaign-footer {
+    margin-top: 1.5rem;
+
+    .btn-primary {
+      width: 100%;
+      padding: 1rem;
+      background: $primary-color;
+      color: white;
+      border: none;
+      border-radius: 0.75rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: darken($primary-color, 10%);
+      }
+    }
+  }
+
+  // Animations
+  @keyframes cardEntrance {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  // Responsive Design
+  @media (max-width: 768px) {
+    .campaign-card {
+      margin-bottom: 1.5rem;
+    }
+
+    .campaign-media {
+      height: 200px;
+    }
+
+    .campaign-content {
+      padding: 1rem;
+    }
+
+    .campaign-title {
+      font-size: 1.25rem;
+    }
+  }
+}

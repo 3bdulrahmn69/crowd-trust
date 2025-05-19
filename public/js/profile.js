@@ -67,12 +67,15 @@ async function renderCampaigns(userId) {
   }
 
   campaigns.forEach(
-    ({ title, description, goal, raised, image, category, id }) => {
+    ({ title, description, goal, raised, image, category, id, isApproved }) => {
       const progress = Math.min(100, Math.floor((raised / goal) * 100));
       const card = document.createElement('div');
       card.className = 'campaign-card';
       card.innerHTML = `
       <h3 class="campaign__title">${title}</h3>
+      <span class="approve-span ${
+        isApproved ? 'approve-span-approved' : 'approve-span-pending'
+      }"></span>
       <p class="campaign__description">${description}</p>
       <p class="campaign__goal">Goal: $${goal} Raised: $${raised}</p>
       <div class="campaign__progress-bar">
@@ -217,6 +220,7 @@ function setupDeleteUser(userId) {
 const UpdateDialog = document.getElementById('update-dialog');
 const rewardsContainer = document.getElementById('rewards-container');
 const addRewardBtn = document.getElementById('add-reward-btn');
+let globalImage = '';
 
 document
   .getElementById('campaigns-tab')
@@ -247,6 +251,7 @@ document
       const imagePreview = document.getElementById('update-image-preview');
       if (campaign.image) {
         imagePreview.src = campaign.image;
+        globalImage = campaign.image;
         imagePreview.style.display = 'block';
       } else {
         imagePreview.src = '';
@@ -348,6 +353,7 @@ document.getElementById('update-form').addEventListener('submit', async (e) => {
     );
     return { title, amount };
   });
+
   const imageBase64 = await imageToBase64(image);
 
   const updatedCampaign = {
@@ -357,7 +363,7 @@ document.getElementById('update-form').addEventListener('submit', async (e) => {
     raised,
     deadline,
     category,
-    image: imageBase64,
+    image: image.size === 0 ? globalImage : imageBase64,
     rewards,
   };
 

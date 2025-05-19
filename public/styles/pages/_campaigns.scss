@@ -1,166 +1,123 @@
-// Variables
-$primary-color: #3b82f6;
-$secondary-color: #64748b;
-$success-color: #10b981;
-$danger-color: #ef4444;
-$background-color: #f8fafc;
-$text-color: #1e293b;
+.campaign-page {
+  // Variables
+  $primary-color: #3b82f6;
+  $secondary-color: #64748b;
+  $success-color: #10b981;
+  $danger-color: #ef4444;
+  $background-color: #f8fafc;
+  $text-color: #1e293b;
+  $input-bg: #f8fafc;
+  $input-border: #e2e8f0;
+  $input-radius: 0.5rem;
+  $input-padding: 0.75rem 1rem;
 
-// Mixins
-@mixin flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-@mixin card-shadow {
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-
-// Campaign Actions
-.campaign-actions {
-  margin-bottom: 2rem;
-  display: flex;
-  gap: 1rem;
-
-  .btn-primary {
-    background: $primary-color;
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem;
-    border: none;
-    cursor: pointer;
-    transition: background 0.2s ease;
-
-    &:hover {
-      background: darken($primary-color, 10%);
-    }
-  }
-}
-
-// Campaign Cards
-.campaign-container {
-  display: grid;
-  gap: 2rem;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-}
-
-.campaign-card {
-  background: white;
-  border-radius: 1rem;
-  overflow: hidden;
-  @include card-shadow;
-  transition: transform 0.2s ease;
-
-  &:hover {
-    transform: translateY(-4px);
-  }
-}
-
-.campaign-media {
-  position: relative;
-  height: 200px;
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-}
-
-.campaign-category-badge {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  background: rgba(255, 255, 255, 0.9);
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  @include flex-center;
-  gap: 0.5rem;
-
-  i {
-    color: $primary-color;
-  }
-}
-
-.campaign-content {
-  padding: 1.5rem;
-
-  .campaign-title {
-    font-size: 1.25rem;
-    margin-bottom: 0.75rem;
+  // Mixins
+  @mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .campaign-description {
-    color: $secondary-color;
-    margin-bottom: 1rem;
+  @mixin card-shadow {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
-}
 
-.campaign-progress {
-  margin: 1.5rem 0;
-
-  .progress-stats {
+  // Campaign Actions
+  .campaign-actions {
+    margin-bottom: 2rem;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 0.5rem;
-  }
+    align-items: center;
+    gap: 1rem;
 
-  .progress-bar {
-    height: 6px;
-    background: #e2e8f0;
-    border-radius: 3px;
-
-    .progress-fill {
-      height: 100%;
+    .btn-primary {
       background: $primary-color;
-      border-radius: 3px;
-      transition: width 0.3s ease;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s ease;
+
+      &:hover {
+        background: darken($primary-color, 10%);
+      }
     }
   }
-}
 
-.campaign-meta {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  margin: 1.5rem 0;
-
-  .meta-item {
+  .campaign-listing__header {
     @include flex-center;
-    gap: 0.5rem;
-
-    dt {
-      color: $primary-color;
-    }
-  }
-}
-
-// Category Section
-.category-section {
-  margin-top: 4rem;
-
-  .section-title {
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
-    @include flex-center;
-    gap: 0.5rem;
-  }
-}
-
-.category-grid {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-}
-
-// Responsive Design
-@media (max-width: 768px) {
-  .container {
+    flex-direction: column;
     padding: 1rem;
+
+    h1 {
+      font-size: 2rem;
+      color: $text-color;
+    }
   }
 
+  // Campaign Cards
   .campaign-container {
-    grid-template-columns: 1fr;
+    display: grid;
+    padding: 2rem 0;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+
+  // Responsive Design
+  @media (max-width: 768px) {
+    .container {
+      padding: 1rem;
+    }
+
+    .campaign-container {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .filter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+
+    label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    &__select {
+      appearance: none;
+      width: 100%;
+      padding: $input-padding;
+      border: 1px solid $input-border;
+      border-radius: $input-radius;
+      background-color: $input-bg;
+      font-size: 0.875rem;
+      color: #1e293b;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      background-size: 1em;
+      transition: border 0.2s ease, box-shadow 0.2s ease;
+
+      &:focus {
+        outline: none;
+        border-color: $primary-color;
+        box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+        background-color: white;
+      }
+    }
+  }
+
+  // Responsive tweak if needed
+  @media (max-width: 480px) {
+    .filter {
+      gap: 0.25rem;
+    }
   }
 }

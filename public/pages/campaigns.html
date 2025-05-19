@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="../styles/style.css">
 </head>
 
-<body>
+<body class="campaign-page">
   <!-- Header -->
   <header class="header">
     <div class="container header__container">
@@ -44,9 +44,9 @@
           <div id="user_container" class="auth__profile hidden">
             <button id="user_button" class="btn btn--text">👋 Username</button>
             <ul id="profile_list" class="profile_list hidden">
-              <li><a href="./pages/user/profile.html">View Profile</a></li>
-              <li><button class="btn btn--danger btn--full" id="logout_btn">Log Out</>
-              </li>
+              <li><a href="/pages/user/profile.html">View Profile</a></li>
+              <li><a id="link-replace" href="/pages/campaigns.html">Campaigns</a></li>
+              <li><button class="btn btn--danger btn--full" id="logout_btn">Log Out</li>
             </ul>
           </div>
         </div>
@@ -57,16 +57,43 @@
 
   <!-- Main Content -->
   <main id="main-content" class="container" tabindex="-1">
-    <!-- Campaign Actions -->
-    <section class="campaign-actions" aria-label="Campaign Actions">
-      <button class="btn btn-primary" id="open-dialog">Create campaign</button>
-    </section>
-
-    <!-- Campaigns Listing -->
     <section class="campaign-listing" id="cardContainer" aria-labelledby="campaigns-heading">
-      <h1 id="campaigns-heading" class="visually-hidden">Campaigns</h1>
-      <div id="campaign-container" class="campaign-container">
+      <div class="campaign-listing__header">
+        <h1>Campaigns</h1>
+        <p>
+          Explore our campaigns and find the one that resonates with you. Support a cause, make a difference, and be
+          part
+          of
+          something bigger.
+        </p>
+      </div>
 
+      <!-- Campaign Actions -->
+      <div class="campaign-actions">
+        <div class="filter">
+          <label for="campaign-category">Category:</label>
+          <select id="campaign-category" class="filter__select">
+            <option value="all">All Categories</option>
+            <option value="health">Health</option>
+            <option value="technology">Technology</option>
+            <option value="education">Education</option>
+            <option value="environment">Environment</option>
+            <option value="arts">Arts</option>
+            <option value="music">Music</option>
+            <option value="film">Film & Video</option>
+            <option value="games">Games</option>
+            <option value="food">Food & Drink</option>
+            <option value="fashion">Fashion</option>
+            <option value="sports">Sports</option>
+            <option value="nonprofit">Nonprofit</option>
+            <option value="science">Science</option>
+          </select>
+        </div>
+        <div class="create-btn hidden" aria-label="Campaign Actions">
+          <button class="btn btn-primary" id="open-dialog">Create campaign</button>
+        </div>
+      </div>
+      <div id="campaign-container" class="campaign-container">
       </div>
     </section>
   </main>
@@ -118,9 +145,18 @@
             <label for="create-category" class="form-group__label">Category</label>
             <select id="create-category" name="category" class="form-group__select" required>
               <option value="health">Health</option>
-              <option value="tech">Tech</option>
+              <option value="technology">Technology</option>
               <option value="education">Education</option>
               <option value="environment">Environment</option>
+              <option value="arts">Arts</option>
+              <option value="music">Music</option>
+              <option value="film">Film & Video</option>
+              <option value="games">Games</option>
+              <option value="food">Food & Drink</option>
+              <option value="fashion">Fashion</option>
+              <option value="sports">Sports</option>
+              <option value="nonprofit">Nonprofit</option>
+              <option value="science">Science</option>
             </select>
           </div>
 

@@ -4,87 +4,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crowd Trust - Donate</title>
+    <title>Crowd Trust - Checkout</title>
     <link rel="stylesheet" href="../styles/style.css">
 </head>
 
-<body>
+<body class="checkout-page">
     <div class="crowd-trust-container">
-    <main  id="donation-card" class="donation-container">
-        <div class="donation-header">
-            <h1>Support Our Cause</h1>
-            <p>Your contribution helps us make a difference.</p>
-        </div>
-        <div id="relatedCampaigns" class="related-campaigns">
-           
-            <p id="daysRemaining"></p>
+        <main id="donation-card" class="donation-card">
+            <div class="donation-card__header">
+                <img id="campaignImage" src="" alt="Campaign image" class="donation-card__image">
+                <h1 id="campaignTitle" class="donation-card__title">Support Our Cause</h1>
+                <p id="campaignDescription" class="donation-card__subtitle">Your contribution helps us make a
+                    difference.</p>
             </div>
 
-        <div class="donation-form">
-            <h3> Support </h3>
-            <form id="donationForm">
-                <div class="form-group">
-                    <label for="donationAmount">Support Amount ($)</label>
-                    <input type="number" id="donationAmount" min="1" step="1" placeholder="Enter amount" required>
-                    <div class="hidden error-message" id="exceeding-msg" > you exceed goal of campaign</div>
-                    <div class="quick-select">
-
-                        <button type="button" class="amount-option" data-amount="25" >$25</button>
-                        <button type="button" class="amount-option" data-amount="50">$50</button>
-                        <button type="button" class="amount-option" data-amount="100" >$100</button>
-                        <button type="button" class="amount-option" data-amount="250" >$250</button>
-                    </div>
+            <div class="donation-card__progress">
+                <div class="donation-card__progress-info">
+                    <span class="donation-card__raised">Raised: $<span id="raisedAmount">0</span></span>
+                    <span class="donation-card__goal">Goal: $<span id="goalAmount">0</span></span>
                 </div>
-
-                <div class="form-group">
-                    <label for="paymentMethod">Payment Method</label>
-                    <select id="paymentMethod" required>
-                        <option value="" disabled selected>Select payment method</option>
-                        <option value="credit">Credit Card</option>
-                        <option value="paypal">PayPal</option>
-                        <option value="bank">Bank Transfer</option>
-                    </select>
+                <div class="donation-card__progress-bar">
+                    <div id="progressBar" class="donation-card__progress-fill" style="width: 0%"></div>
                 </div>
+                <p id="daysRemaining" class="donation-card__days-remaining"></p>
+            </div>
 
-                <!-- <div class="form-group" id="creditCardFields" style="display: none;">
-                    <label for="cardNumber">Card Number</label>
-                    <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456">
+            <div class="donation-card__form-container">
+                <h3 class="donation-card__form-title">Support This Project</h3>
+                <form id="donationForm" class="donation-form">
 
-                    <div class="card-details">
-                        <div>
-                            <label for="expiryDate">Expiry Date</label>
-                            <input type="text" id="expiryDate" placeholder="MM/YY">
-                        </div>
-                        <div>
-                            <label for="cvv">CVV</label>
-                            <input type="text" id="cvv" placeholder="123">
+                    <!-- Donation Amount -->
+                    <div class="donation-form__group">
+                        <label for="donationAmount" class="donation-form__label">Support Amount ($)</label>
+                        <input type="number" id="donationAmount" class="donation-form__input" min="1" step="1"
+                            placeholder="Enter amount" required>
+                        <div id="exceeding-msg" class="donation-form__error-message hidden">You exceed the goal of this
+                            campaign.</div>
+
+                        <div class="donation-form__quick-select">
+                            <button type="button" class="donation-form__amount-option" data-amount="25">$25</button>
+                            <button type="button" class="donation-form__amount-option" data-amount="50">$50</button>
+                            <button type="button" class="donation-form__amount-option" data-amount="100">$100</button>
+                            <button type="button" class="donation-form__amount-option" data-amount="250">$250</button>
                         </div>
                     </div>
-                </div> -->
 
-               <div class="form-group">
-                    <label for="Reward">choose Reward</label>
-                    <select id="selectReward" required>
-                        <option value="" disabled selected>Select Your Reward</option>
-                        <!-- <option class="rewardOption"></option> -->
-                      
-                    </select>
-                </div>
+                    <!-- Payment Method -->
+                    <div class="donation-form__group">
+                        <label for="paymentMethod" class="donation-form__label">Payment Method</label>
+                        <select id="paymentMethod" class="donation-form__select" required>
+                            <option value="" disabled selected>Select payment method</option>
+                            <option value="credit">Credit Card</option>
+                            <option value="paypal">PayPal</option>
+                            <option value="bank">Bank Transfer</option>
+                        </select>
+                    </div>
 
+                    <!-- Reward Selection -->
+                    <div class="donation-form__group">
+                        <label for="selectReward" class="donation-form__label">Choose a Reward</label>
+                        <select id="selectReward" class="donation-form__select" required>
+                            <option value="" disabled selected>Select your reward</option>
+                        </select>
+                    </div>
 
-                <button type="submit" class="submit-donation">Complete Donation</button>
-            </form>
+                    <!-- Submit Button -->
+                    <button type="submit" class="donation-form__submit-button">Complete Donation</button>
+                </form>
+            </div>
+        </main>
+
+        <div id="thankYouMessage" class="donation-header hidden">
+            <h1>Thank you for your donation!</h1>
+            <p>Your support helps us make a difference.</p>
+            <p>If you have any questions, feel free to <a href="/#contact" class="nav__link">contact us</a>.</p>
         </div>
-    </main>
-    <div id="thankYouMessage" class="donation-header hidden">
-        <h1>Thank you for your donation!</h1>
-        <p>Your support helps us make a difference.</p>
-        <p>If you have any questions, feel free to <a href="/#contact" class="nav__link">contact us</a>.</p>
     </div>
-    </div>
-    
-
-
 
     <script src="../js/checkout.js" type="module"></script>
 </body>

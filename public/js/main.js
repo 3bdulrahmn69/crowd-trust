@@ -18,11 +18,6 @@ getApprovedCampaigns().then((campaigns) => {
     campaignList.appendChild(card);
   });
 });
-let displayCampaignPage = document.getElementById('displayCampaignPage');
-
-displayCampaignPage.addEventListener('click', () => {
-  window.location.href = '/pages/campaign.html';
-});
 
 function updateUIForLoggedInUser(userJSON) {
   const authButtons = document.getElementById('auth_buttons');
@@ -45,6 +40,11 @@ function updateUIForLoggedInUser(userJSON) {
   authButtons?.classList.add('hidden');
   userContainer?.classList.remove('hidden');
   userButton.textContent = `👋 ${user.name}`;
+
+  if (user.role === 'admin') {
+    document.getElementById('link-replace').href = '/pages/dashboard.html';
+    document.getElementById('link-replace').textContent = 'Dashboard';
+  }
 
   // Dropdown toggle on hover
   userContainer.addEventListener('mouseenter', () => {

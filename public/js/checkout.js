@@ -1,98 +1,112 @@
-import { getCampaignById , updateCampaign ,createPledge} from "../lib/api.js";
-import {getUserData ,uuidv4} from "../lib/utilities.js";
+import { getCampaignById, updateCampaign, createPledge } from '../lib/api.js';
+import { getUserData, uuidv4 } from '../lib/utilities.js';
 import { Pledge } from '../lib/classes.js';
 
-const donationForm = document.getElementById("donationForm");
-const donationAmount = document.getElementById("donationAmount");
-const amountOptions = document.querySelectorAll(".amount-option");
-const rewardcontainer= document.getElementById("selectReward");
+const donationForm = document.getElementById('donationForm');
+const donationAmountInput = document.getElementById('donationAmount');
+const amountButtons = document.querySelectorAll(
+  '.donation-form__amount-option'
+);
+const rewardSelect = document.getElementById('selectReward');
+const campaignImage = document.getElementById('campaignImage');
+const campaignTitle = document.getElementById('campaignTitle');
+const campaignDescription = document.getElementById('campaignDescription');
+const raisedAmount = document.getElementById('raisedAmount');
+const goalAmount = document.getElementById('goalAmount');
+const progressBar = document.getElementById('progressBar');
+const daysRemainingText = document.getElementById('daysRemaining');
+const exceedingMsg = document.getElementById('exceeding-msg');
 
-
-const campaignId = new URLSearchParams(window.location.search).get("campaign");
-const relatedCampaigns = document.getElementById("relatedCampaigns");
-const campaignTitle = document.createElement("h2");
-const campaignDescription = document.createElement("p");
-const daysRemaining = document.getElementById("daysRemaining");
+const campaignId = new URLSearchParams(window.location.search).get('campaign');
 
 (async function init() {
-  const data = await getData(campaignId);
-  console.log(data);
+  const data = await getCampaignById(campaignId);
+  if (!data) return;
 
   // Render campaign details
-  campaignTitle.innerText = data.title;
-  relatedCampaigns.appendChild(campaignTitle);
-  campaignTitle.classList.add("donation-header");
+  campaignTitle.textContent = data.title;
+  campaignDescription.textContent = data.description;
+  campaignImage.src = data.image;
+  raisedAmount.textContent = data.raised.toLocaleString();
+  goalAmount.textContent = data.goal.toLocaleString();
+  daysRemainingText.textContent = `Days Remaining: ${calculateDaysRemaining(
+    data.deadline
+  )}`;
 
-  campaignDescription.innerText = data.description;
-  relatedCampaigns.appendChild(campaignDescription);
+  // Update progress bar width
+  const percentage = Math.min((data.raised / data.goal) * 100, 100);
+  progressBar.style.width = `${percentage}%`;
 
-  const remainingDays = calculateDaysRemaining(data.deadline);
-  daysRemaining.innerText = `Days Remaining: ${remainingDays}`;
+  // Setup reward options
+  rewardSelect.innerHTML += data.rewards
+    .map((reward) => {
+      return `<option value="${reward.id}">$${reward.amount} - ${reward.title}</option>`;
+    })
+    .join('');
 
-  const remaining = data.goal - data.raised;
-  console.log("Remaining amount:", remaining);
-
-  // Add validation for exceeding amount
-  donationAmount.addEventListener("blur", function () {
-    const warningMsg = document.getElementById("exceeding-msg");
-    if (donationAmount.value > remaining) {
-      warningMsg.classList.remove("hidden");
-    } else {
-      warningMsg.classList.add("hidden");
-    }
-
+  // Setup amount buttons
+  amountButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      amountButtons.forEach((b) => b.classList.remove('active'));
+      donationAmountInput.value = btn.dataset.amount;
+      btn.classList.add('active');
+      validateDonationAmount(data.goal - data.raised);
+    });
   });
 
-   console.log(data.rewards);
-    for (let i = 0; i < data.rewards.length; i++){
-        console.log(data.rewards[i]);
-        const rewardOption = document.createElement("option");
-     rewardOption.innerText = ` ${data.rewards[i].amount} - ${data.rewards[i].title}`;
-     rewardOption.value = data.rewards[i].id;
-     rewardcontainer.appendChild(rewardOption);
-    }
-    
-
-  // Add click listeners to preset amount buttons
-  amountOptions.forEach((btn) => {
-    btn.addEventListener("click", function () {
-      donationAmount.value = btn.dataset.amount;
-      btn.classList.add("active");
-    });
-    btn.addEventListener("blur", function () {
-      btn.classList.remove("active");
-    });
+  // Validate donation input
+  donationAmountInput.addEventListener('blur', () => {
+    validateDonationAmount(data.goal - data.raised);
   });
 })();
 
-// Submit form handler
-donationForm.addEventListener("submit",async function (e) {
+// Handle form submission
+donationForm.addEventListener('submit', async (e) => {
   e.preventDefault();
-  document.getElementById(`donation-card`).style.display = "none";
-  document.getElementById("thankYouMessage").classList.remove("hidden");
-  const data = await getData(campaignId);
-  const supportUpdate =data.raised += parseInt(donationAmount.value);
-    await updateCampaign(campaignId, {raised: supportUpdate});
-    const selectReward = document.getElementById("selectReward");
-    
 
-    const pledge = new Pledge(uuidv4(), campaignId,getUserData().id ,donationAmount.value, selectReward.value);
-    await createPledge(pledge);
+  const donationValue = parseInt(donationAmountInput.value);
+  const selectedRewardId = rewardSelect.value;
+  const data = await getCampaignById(campaignId);
+  const remaining = data.goal - data.raised;
+
+  if (donationValue > remaining) {
+    validateDonationAmount(remaining);
+    return;
+  }
+
+  // Update campaign raised value
+  const updatedRaised = data.raised + donationValue;
+  await updateCampaign(campaignId, { raised: updatedRaised });
+
+  // Create pledge
+  const pledge = new Pledge(
+    uuidv4(),
+    campaignId,
+    getUserData().id,
+    donationValue,
+    selectedRewardId
+  );
+  await createPledge(pledge);
+
+  // Feedback
+  document.getElementById('donation-card').style.display = 'none';
+  document.getElementById('thankYouMessage').classList.remove('hidden');
 });
 
-
-// Fetch campaign data
-async function getData(campaignId) {
-  const data = await getCampaignById(campaignId);
-  return data;
+// Utility: Validate input against goal
+function validateDonationAmount(remaining) {
+  const value = parseInt(donationAmountInput.value);
+  if (value > remaining) {
+    exceedingMsg.classList.remove('hidden');
+  } else {
+    exceedingMsg.classList.add('hidden');
+  }
 }
 
-// Helper to calculate days remaining
+// Utility: Calculate remaining days
 function calculateDaysRemaining(deadline) {
   const end = new Date(deadline);
   const now = new Date();
   const diffTime = end - now;
   return Math.max(Math.ceil(diffTime / (1000 * 60 * 60 * 24)), 0);
 }
- 
- 

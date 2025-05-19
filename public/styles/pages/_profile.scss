@@ -1,311 +1,328 @@
-.profile-container {
-  max-width: 1200px;
-  height: 100vh;
-  margin: 0 auto;
-  padding: 2rem;
-  overflow-y: auto;
-  background: white;
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.05);
-
-  .name {
-    font-size: 2rem;
-    font-weight: 600;
-    color: $color-primary;
-    margin-bottom: 0.5rem;
-  }
-
-  .feedback {
-    margin-top: 0.5rem;
-    font-size: 0.875rem;
-
-    &-success {
-      color: $color-success;
-    }
-
-    &-error {
-      color: $color-danger;
-    }
-  }
-
-  // Navigation Tabs
-  .profile-nav {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 2.5rem;
+.profile-page {
+  .profile-container {
+    max-width: 1200px;
+    height: 100vh;
+    margin: 0 auto;
+    padding: 2rem;
+    overflow-y: auto;
     background: white;
-    padding: 1rem 0;
-    z-index: 10;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.05);
 
-    .nav-tab {
-      padding: 0.75rem 1.5rem;
-      background: transparent;
-      border: none;
-      border-radius: 0.75rem;
-      font-weight: 500;
-      color: #64748b;
-      cursor: pointer;
-      transition: all 0.2s ease;
+    .name {
+      font-size: 2rem;
+      font-weight: 600;
+      color: $color-primary;
+      margin-bottom: 0.5rem;
+    }
 
-      &:hover:not(.active) {
-        background: #f8fafc;
-        color: #3b82f6;
+    .feedback {
+      margin-top: 0.5rem;
+      font-size: 0.875rem;
+
+      &-success {
+        color: $color-success;
       }
 
-      &.active {
-        color: #3b82f6;
-        background: rgba(59, 130, 246, 0.1);
-        position: relative;
+      &-error {
+        color: $color-danger;
+      }
+    }
 
-        &::after {
-          content: '';
-          position: absolute;
-          bottom: -1px;
-          left: 0;
-          width: 100%;
-          height: 2px;
-          background: #3b82f6;
+    // Navigation Tabs
+    .profile-nav {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 2.5rem;
+      background: white;
+      padding: 1rem 0;
+      z-index: 10;
+
+      .nav-tab {
+        padding: 0.75rem 1.5rem;
+        background: transparent;
+        border: none;
+        border-radius: 0.75rem;
+        font-weight: 500;
+        color: #64748b;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover:not(.active) {
+          background: #f8fafc;
+          color: #3b82f6;
+        }
+
+        &.active {
+          color: #3b82f6;
+          background: rgba(59, 130, 246, 0.1);
+          position: relative;
+
+          &::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #3b82f6;
+          }
         }
       }
     }
-  }
 
-  // Profile Sections
-  .profile-tab {
-    display: none;
-    animation: fadeIn 0.3s ease-out;
+    // Profile Sections
+    .profile-tab {
+      display: none;
+      animation: fadeIn 0.3s ease-out;
 
-    &.active {
-      display: block;
-    }
-  }
-
-  .profile-section {
-    margin-bottom: 2rem;
-    padding: 2rem;
-    background: #ffffff;
-    border-radius: 1rem;
-    border: 1px solid #f1f5f9;
-
-    h2 {
-      font-size: 1.5rem;
-      font-weight: 600;
-      color: #1e293b;
-      margin-bottom: 1.5rem;
-    }
-  }
-
-  // User Details
-  #user-details {
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-
-    p {
-      margin: 0;
-      padding: 1rem;
-      background: #f8fafc;
-      border-radius: 0.75rem;
-      font-size: 0.875rem;
-
-      strong {
-        color: #1e293b;
-        font-weight: 500;
+      &.active {
         display: block;
-        margin-bottom: 0.25rem;
-      }
-
-      span {
-        color: #64748b;
-        font-weight: 400;
-      }
-    }
-  }
-
-  // Forms
-  form {
-    display: grid;
-    gap: 1.5rem;
-    max-width: 500px;
-
-    label {
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: #475569;
-      display: block;
-    }
-
-    input {
-      width: 100%;
-      padding: 0.875rem 1.25rem;
-      border: 1px solid #e2e8f0;
-      border-radius: 0.75rem;
-      font-size: 0.875rem;
-      transition: all 0.2s ease;
-      background: #f8fafc;
-
-      &:focus {
-        outline: none;
-        border-color: #93c5fd;
-        box-shadow: 0 0 0 3px rgba(147, 197, 253, 0.2);
-        background: white;
-      }
-    }
-
-    button[type='submit'] {
-      padding: 0.875rem 1.75rem;
-      background: #3b82f6;
-      color: white;
-      border: none;
-      border-radius: 0.75rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s ease;
-
-      &:hover {
-        background: #2563eb;
-      }
-    }
-  }
-
-  // Danger Zone
-  #control-section {
-    border-color: #fee2e2;
-    background: #fef2f2;
-
-    h2 {
-      color: #dc2626;
-    }
-
-    p {
-      color: #991b1b;
-      margin-bottom: 1rem;
-    }
-
-    .btn--danger {
-      background: #dc2626;
-      color: white;
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.75rem;
-      transition: all 0.2s ease;
-
-      &:hover {
-        background: #b91c1c;
-      }
-    }
-  }
-
-  // Campaign Cards
-  #campaigns-list {
-    display: grid;
-    gap: 1.5rem;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  }
-
-  .campaign-card {
-    padding: 1.5rem;
-    border: 1px solid #f1f5f9;
-    border-radius: 1rem;
-    transition: transform 0.2s ease;
-
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    }
-
-    .campaign__title {
-      font-size: 1.125rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      color: #1e293b;
-    }
-
-    .campaign__description {
-      color: #64748b;
-      font-size: 0.875rem;
-      margin-bottom: 1rem;
-    }
-
-    .campaign__progress-bar {
-      height: 6px;
-      background: #f1f5f9;
-      border-radius: 3px;
-      margin: 1rem 0;
-
-      .campaign__progress {
-        height: 100%;
-        background: #3b82f6;
-        border-radius: 3px;
-        transition: width 0.3s ease;
-      }
-    }
-
-    img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 0.75rem;
-      margin-top: 1rem;
-    }
-  }
-
-  // Pledge Cards
-  #pledges-list {
-    display: grid;
-    gap: 1rem;
-  }
-
-  .pledge-card {
-    padding: 1.5rem;
-    border: 1px solid #f1f5f9;
-    border-radius: 1rem;
-    background: white;
-
-    p {
-      margin: 0.25rem 0;
-      font-size: 0.875rem;
-      color: #475569;
-
-      strong {
-        color: #1e293b;
-        font-weight: 500;
-      }
-    }
-  }
-
-  // Responsive Design
-  @media (max-width: 768px) {
-    .profile-container {
-      padding: 1.5rem;
-    }
-
-    .profile-nav {
-      flex-direction: column;
-
-      .nav-tab {
-        width: 100%;
-        text-align: left;
       }
     }
 
     .profile-section {
-      padding: 1.5rem;
+      margin-bottom: 2rem;
+      padding: 2rem;
+      background: #ffffff;
+      border-radius: 1rem;
+      border: 1px solid #f1f5f9;
+
+      h2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 1.5rem;
+      }
     }
 
+    // User Details
+    #user-details {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+      p {
+        margin: 0;
+        padding: 1rem;
+        background: #f8fafc;
+        border-radius: 0.75rem;
+        font-size: 0.875rem;
+
+        strong {
+          color: #1e293b;
+          font-weight: 500;
+          display: block;
+          margin-bottom: 0.25rem;
+        }
+
+        span {
+          color: #64748b;
+          font-weight: 400;
+        }
+      }
+    }
+
+    // Forms
+    form {
+      display: grid;
+      gap: 1.5rem;
+      max-width: 500px;
+
+      label {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #475569;
+        display: block;
+      }
+
+      input {
+        width: 100%;
+        padding: 0.875rem 1.25rem;
+        border: 1px solid #e2e8f0;
+        border-radius: 0.75rem;
+        font-size: 0.875rem;
+        transition: all 0.2s ease;
+        background: #f8fafc;
+
+        &:focus {
+          outline: none;
+          border-color: #93c5fd;
+          box-shadow: 0 0 0 3px rgba(147, 197, 253, 0.2);
+          background: white;
+        }
+      }
+
+      button[type='submit'] {
+        padding: 0.875rem 1.75rem;
+        background: #3b82f6;
+        color: white;
+        border: none;
+        border-radius: 0.75rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background: #2563eb;
+        }
+      }
+    }
+
+    // Danger Zone
+    #control-section {
+      border-color: #fee2e2;
+      background: #fef2f2;
+
+      h2 {
+        color: #dc2626;
+      }
+
+      p {
+        color: #991b1b;
+        margin-bottom: 1rem;
+      }
+
+      .btn--danger {
+        background: #dc2626;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.75rem;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background: #b91c1c;
+        }
+      }
+    }
+
+    // Campaign Cards
     #campaigns-list {
-      grid-template-columns: 1fr;
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     }
-  }
 
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
+    .campaign-card {
+      padding: 1.5rem;
+      border: 1px solid #f1f5f9;
+      border-radius: 1rem;
+      transition: transform 0.2s ease;
+      position: relative;
+
+      .approve-span {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+
+        &-approved {
+          background: #15803d;
+        }
+        &-pending {
+          background: #ca8a04;
+        }
+      }
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      }
+
+      .campaign__title {
+        font-size: 1.125rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #1e293b;
+      }
+
+      .campaign__description {
+        color: #64748b;
+        font-size: 0.875rem;
+        margin-bottom: 1rem;
+      }
+
+      .campaign__progress-bar {
+        height: 6px;
+        background: #f1f5f9;
+        border-radius: 3px;
+        margin: 1rem 0;
+
+        .campaign__progress {
+          height: 100%;
+          background: #3b82f6;
+          border-radius: 3px;
+          transition: width 0.3s ease;
+        }
+      }
+
+      img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 0.75rem;
+        margin-top: 1rem;
+      }
     }
-    to {
-      opacity: 1;
-      transform: translateY(0);
+
+    // Pledge Cards
+    #pledges-list {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .pledge-card {
+      padding: 1.5rem;
+      border: 1px solid #f1f5f9;
+      border-radius: 1rem;
+      background: white;
+
+      p {
+        margin: 0.25rem 0;
+        font-size: 0.875rem;
+        color: #475569;
+
+        strong {
+          color: #1e293b;
+          font-weight: 500;
+        }
+      }
+    }
+
+    // Responsive Design
+    @media (max-width: 768px) {
+      .profile-container {
+        padding: 1.5rem;
+      }
+
+      .profile-nav {
+        flex-direction: column;
+
+        .nav-tab {
+          width: 100%;
+          text-align: left;
+        }
+      }
+
+      .profile-section {
+        padding: 1.5rem;
+      }
+
+      #campaigns-list {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   }
 }
-
-@import '../layout/dialog';

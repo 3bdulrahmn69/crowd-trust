@@ -7,12 +7,17 @@ $danger-color: #ef4444;
 
 .dialog {
   border: none;
-  border-radius: 1rem;
   padding: 2rem;
   max-width: 800px;
   width: 90%;
   background: $dialog-bg;
   transition: transform 0.3s ease, opacity 0.3s ease;
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
 
   &::backdrop {
     background: rgba(0, 0, 0, 0.5);

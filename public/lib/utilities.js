@@ -45,61 +45,66 @@ async function createCampaignCard(campaign) {
     const timeDiff = endDate - today;
     const daysLeft = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
 
-    if (daysLeft < 0) {
-      return 'Campaign ended';
-    } else if (daysLeft === 0) {
-      return 'Last day to support';
-    } else {
-      return `${daysLeft} days left`;
-    }
+    if (daysLeft < 0) return 'Campaign ended';
+    if (daysLeft === 0) return 'Last day to support';
+    return `${daysLeft} days left`;
   };
 
   const backers = await getUniquePledgesByCampaign(campaign.id);
 
-  const card = document.createElement('div');
+  const card = document.createElement('article');
   card.classList.add('campaign-card');
+  card.setAttribute('role', 'region');
+  card.setAttribute('aria-labelledby', `campaign-title-${campaign.id}`);
 
   card.innerHTML = `
-  <figure class="campaign-media">
-    <img
-      src="${campaign.image}"
-      alt="${campaign.title} campaign image">
-    <figcaption class="campaign-category-badge">
-      <i class="fas fa-graduation-cap" aria-hidden="true"></i>
-      <span>${campaign.category}</span>
-    </figcaption>
-  </figure>
-  <div class="campaign-content">
-    <header class="campaign-header">
-      <h2 id="campaign2-title" class="campaign-title">${campaign.title}</h2>
-      <p class="campaign-creator">By <span>${name}</span></p>
-    </header>
-    <p class="campaign-description">
-      ${campaign.description}
-    </p>
-    <div class="campaign-progress" aria-label="Funding Progress">
-      <div class="progress-stats">
-        <span class="amount-raised">$${campaign.raised} raised</span>
-        <span class="funding-goal">of $${campaign.goal} goal</span>
-      </div>
-      <div class="progress-bar" aria-hidden="true">
-        <div class="progress-fill" style="width: ${progress}%"></div>
-      </div>
-    </div>
-    <dl class="campaign-meta">
-      <div class="meta-item">
-        <dt><i class="fas fa-users" aria-hidden="true"></i></dt>
-        <dd>${backers.length} backers</dd>
-      </div>
-      <div class="meta-item">
-        <dt><i class="fas fa-clock" aria-hidden="true"></i></dt>
-        <dd>${remainingDays(campaign.deadline)}</dd>
-      </div>
-    </dl>
-    <a href="/pages/checkout.html?campaign=${
-      campaign.id
-    }" class="btn btn-primary">Support Now</a>
-  </div>
+    <figure class="campaign-media">
+      <img src="${campaign.image}" alt="${campaign.title} campaign image" />
+      <figcaption class="campaign-category-badge">
+        <i class="fas fa-tag" aria-hidden="true"></i>
+        <span class="category-label">${campaign.category}</span>
+      </figcaption>
+    </figure>
+
+    <section class="campaign-content">
+      <header class="campaign-header">
+        <h2 id="campaign-title-${campaign.id}" class="campaign-title">${
+    campaign.title
+  }</h2>
+        <p class="campaign-creator">By <span class="creator-name">${name}</span></p>
+      </header>
+
+      <summary class="campaign-description">
+        ${campaign.description}
+      </summary>
+
+      <section class="campaign-progress" aria-label="Funding progress">
+        <div class="progress-info">
+          <span class="amount-raised">$${campaign.raised.toLocaleString()} raised</span>
+          <span class="funding-goal">of $${campaign.goal.toLocaleString()} goal</span>
+        </div>
+        <div class="progress-bar" role="progressbar" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-fill" style="width: ${progress}%;"></div>
+        </div>
+      </section>
+
+      <dl class="campaign-meta">
+        <div class="meta-item">
+          <dt><i class="fas fa-users" aria-hidden="true"></i><span class="sr-only">Backers</span></dt>
+          <dd>${backers.length} backers</dd>
+        </div>
+        <div class="meta-item">
+          <dt><i class="fas fa-clock" aria-hidden="true"></i><span class="sr-only">Time remaining</span></dt>
+          <dd>${remainingDays(campaign.deadline)}</dd>
+        </div>
+      </dl>
+
+      <footer class="campaign-footer hidden">
+        <a href="/pages/checkout.html?campaign=${
+          campaign.id
+        }" class="btn btn-primary">Support Now</a>
+      </footer>
+    </section>
   `;
 
   return card;

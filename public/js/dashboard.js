@@ -133,9 +133,13 @@ const applyFilters = () => {
   }
 
   if (status !== 'all') {
-    filtered = filtered.filter((user) =>
-      status === 'active' ? user.isActive : !user.isActive
-    );
+    if (status === 'need-approved') {
+      filtered = filtered.filter((user) => !user.isApproved);
+    } else {
+      filtered = filtered.filter((user) =>
+        status === 'active' ? user.isActive : !user.isActive
+      );
+    }
   }
 
   renderUsers(filtered);

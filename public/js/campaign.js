@@ -10,7 +10,6 @@ import { uuidv4 } from '../lib/utilities.js';
 
 function updateUIForLoggedInUser(userJSON) {
   const authButtons = document.getElementById('auth_buttons');
-
   const userContainer = document.getElementById('user_container');
   const userButton = document.getElementById('user_button');
   const profileList = document.getElementById('profile_list');
@@ -24,6 +23,21 @@ function updateUIForLoggedInUser(userJSON) {
   }
 
   const user = JSON.parse(userJSON);
+
+  if (user.role === 'admin') {
+    document.getElementById('link-replace').href = '/pages/dashboard.html';
+    document.getElementById('link-replace').textContent = 'Dashboard';
+  }
+
+  if (user.role === 'campaigner') {
+    document.querySelector('.create-btn').classList.remove('hidden');
+  }
+
+  if (user.role === 'backer') {
+    document.querySelectorAll('.campaign-footer').forEach((footer) => {
+      footer.classList.remove('hidden');
+    });
+  }
 
   // Update UI for logged-in user
   authButtons?.classList.add('hidden');
@@ -45,46 +59,43 @@ function updateUIForLoggedInUser(userJSON) {
   });
 }
 
-// Run on load
-updateUIForLoggedInUser(sessionStorage.getItem('user'));
+// Load and display campaigns
+let allCampaigns = [];
+
+function renderCampaigns(campaigns) {
+  const container = document.getElementById('campaign-container');
+  container.innerHTML = ''; // Clear existing cards
+
+  campaigns.forEach(async (campaign) => {
+    const card = await createCampaignCard(campaign);
+    container.appendChild(card);
+  });
+
+  updateUIForLoggedInUser(sessionStorage.getItem('user'));
+}
+
+getApprovedCampaigns().then((campaigns) => {
+  allCampaigns = campaigns;
+  renderCampaigns(allCampaigns);
+});
+
+document.getElementById('campaign-category').addEventListener('change', (e) => {
+  const selectedCategory = e.target.value;
+
+  if (selectedCategory === 'all') {
+    renderCampaigns(allCampaigns);
+  } else {
+    const filtered = allCampaigns.filter(
+      (campaign) =>
+        campaign.category?.toLowerCase() === selectedCategory.toLowerCase()
+    );
+    renderCampaigns(filtered);
+  }
+});
 
 // Campaign creation dialog
 const rewardsContainer = document.getElementById('create-rewards-container');
 const addRewardBtn = document.getElementById('create-add-reward-btn');
-getApprovedCampaigns().then((campaigns) => {
-  document.getElementById('campaign-container').innerHTML = ''; // Clear existing cards
-
-  campaigns.forEach(async (campaign) => {
-    const card = await createCampaignCard(campaign);
-    document.getElementById('campaign-container').appendChild(card);
-  });
-});
-
-document.getElementById('open-dialog').addEventListener('click', () => {
-  const dialog = document.getElementById('create-dialog');
-  dialog.showModal();
-});
-
-document
-  .getElementById('create-image')
-  .addEventListener('change', async (e) => {
-    const file = e.target.files[0];
-    const imagePreview = document.getElementById('create-image-preview');
-
-    if (file) {
-      try {
-        const base64 = await imageToBase64(file);
-        imagePreview.src = base64;
-        imagePreview.classList.remove('hidden');
-      } catch (err) {
-        console.error('Error converting image:', err);
-      }
-    } else {
-      imagePreview.src = '';
-      imagePreview.classList.add('hidden');
-    }
-  });
-
 function createRewardInput(reward = { title: '', amount: 0 }) {
   const wrapper = document.createElement('div');
   wrapper.className = 'form-group__reward';
@@ -125,6 +136,26 @@ addRewardBtn.addEventListener('click', () => {
   rewardsContainer.appendChild(newReward);
 });
 
+document
+  .getElementById('create-image')
+  .addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    const imagePreview = document.getElementById('create-image-preview');
+
+    if (file) {
+      try {
+        const base64 = await imageToBase64(file);
+        imagePreview.src = base64;
+        imagePreview.classList.remove('hidden');
+      } catch (err) {
+        console.error('Error converting image:', err);
+      }
+    } else {
+      imagePreview.src = '';
+      imagePreview.classList.add('hidden');
+    }
+  });
+
 document.getElementById('create-form').addEventListener('submit', async (e) => {
   e.preventDefault();
 
@@ -136,7 +167,8 @@ document.getElementById('create-form').addEventListener('submit', async (e) => {
     const amount = parseFloat(
       reward.querySelector('.reward-input__amount').value
     );
-    return { title, amount };
+    const id = uuidv4();
+    return { id, title, amount };
   });
 
   const formData = new FormData(e.target);
@@ -166,4 +198,9 @@ document.getElementById('create-form').addEventListener('submit', async (e) => {
 
 document.getElementById('logout_btn').addEventListener('click', () => {
   logout();
+});
+
+document.getElementById('open-dialog').addEventListener('click', () => {
+  const dialog = document.getElementById('create-dialog');
+  dialog.showModal();
 });
