@@ -44,15 +44,6 @@
       "role": "backer",
       "isActive": true,
       "isApproved": true
-    },
-    {
-      "id": "e7124abd-8550-4c34-907f-529f8f9010a4",
-      "name": "Zing Bing",
-      "email": "bedohassan2001@gmail.com",
-      "password": "2131243214124312312",
-      "role": "backer",
-      "isActive": false,
-      "isApproved": true
     }
   ],
   "campaigns": [
@@ -258,25 +249,6 @@
       "userId": 5,
       "amount": 75,
       "rewardId": 1
-    },
-    {
-      "id": "1ec56a85-8d7f-4b00-8758-c82031920443",
-      "campaignId": "3",
-      "amount": "250",
-      "rewardId": "1"
-    },
-    {
-      "id": "b7ed8dcd-def2-48a6-832f-d191d2ab16a6",
-      "campaignId": "3",
-      "amount": "25",
-      "rewardId": "1"
-    },
-    {
-      "id": "b6be67ff-2893-43f9-8b36-086e7812f698",
-      "campaignId": "1",
-      "userId": "1",
-      "amount": 100,
-      "rewardId": "2"
     }
   ]
 }
