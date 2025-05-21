@@ -2325,6 +2325,9 @@ img {
     grid-template-columns: 1fr;
   }
 }
+.auth-page .message-error {
+  color: #ef4444;
+}
 .auth-page .auth-hero {
   background: linear-gradient(135deg, #3b82f6, #64748b);
   color: #ffffff;

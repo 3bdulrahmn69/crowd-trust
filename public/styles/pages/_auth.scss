@@ -9,6 +9,10 @@
     }
   }
 
+  .message-error {
+    color: $color-danger;
+  }
+
   .auth-hero {
     background: linear-gradient(135deg, $primary-color, $secondary-color);
     color: $white;
